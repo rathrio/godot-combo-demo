@@ -1,0 +1,144 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://Enemy/Char_3_No_Armor.png" type="Texture" id=1]
+[ext_resource path="res://Hurtbox.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Enemy/HumanEnemy.gd" type="Script" id=3]
+[ext_resource path="res://Art/MediumShadow.png" type="Texture" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 1.17797, 2.37442 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 6.85522, 3.90878 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "Hurt1"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 57 ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "Hurt2"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 58 ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "Hurt3"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 59 ]
+}
+
+[sub_resource type="Animation" id=6]
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="AnimationNodeAnimation" id=7]
+animation = "Hurt1"
+
+[sub_resource type="AnimationNodeAnimation" id=8]
+animation = "Idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=9]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=10]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachine" id=11]
+states/Hurt1/node = SubResource( 7 )
+states/Hurt1/position = Vector2( 763.5, 189.5 )
+states/Idle/node = SubResource( 8 )
+states/Idle/position = Vector2( 562, 253 )
+transitions = [ "Idle", "Hurt1", SubResource( 9 ), "Hurt1", "Idle", SubResource( 10 ) ]
+start_node = "Idle"
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=12]
+
+[node name="HumanEnemy" type="KinematicBody2D"]
+collision_layer = 2147483664
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+vframes = 16
+hframes = 18
+frame = 57
+
+[node name="ShadowSprite" type="Sprite" parent="."]
+scale = Vector2( 2, 1 )
+texture = ExtResource( 4 )
+offset = Vector2( 0, 21 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 17.0672 )
+rotation = 1.5708
+shape = SubResource( 1 )
+
+[node name="Hurtbox" parent="." instance=ExtResource( 2 )]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2( 0, -0.630707 )
+shape = SubResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Hurt1 = SubResource( 3 )
+anims/Hurt2 = SubResource( 4 )
+anims/Hurt3 = SubResource( 5 )
+anims/Idle = SubResource( 6 )
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource( 11 )
+anim_player = NodePath("../AnimationPlayer")
+parameters/playback = SubResource( 12 )
+
+[node name="Hurtlag" type="Timer" parent="."]
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
+[connection signal="timeout" from="Hurtlag" to="." method="_on_Hurtlag_timeout"]
+
+[editable path="Hurtbox"]

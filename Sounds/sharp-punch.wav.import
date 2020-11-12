@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/sharp-punch.wav-24734b038d32463d1332fd23e08b041c.sample"
+
+[deps]
+
+source_file="res://Sounds/sharp-punch.wav"
+dest_files=[ "res://.import/sharp-punch.wav-24734b038d32463d1332fd23e08b041c.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

@@ -1,0 +1,384 @@
+[gd_scene load_steps=22 format=2]
+
+[ext_resource path="res://Player/Char_3.png" type="Texture" id=1]
+[ext_resource path="res://Player/Player.gd" type="Script" id=2]
+[ext_resource path="res://Hitbox.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Art/MediumShadow.png" type="Texture" id=4]
+[ext_resource path="res://AnimationTree.tscn" type="PackedScene" id=5]
+[ext_resource path="res://InputBuffer.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Player/Combos.tres" type="Resource" id=7]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Block"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 54 ]
+}
+
+[sub_resource type="Animation" id=2]
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 9, 10 ]
+}
+
+[sub_resource type="Animation" id=3]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=4]
+length = 0.4
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 45 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("HitboxPivot/Hitbox/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.05, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true ]
+}
+
+[sub_resource type="Animation" id=5]
+length = 0.4
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 44 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("HitboxPivot/Hitbox/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.05, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true ]
+}
+
+[sub_resource type="Animation" id=6]
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 19 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:collision_layer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 1 ]
+}
+
+[sub_resource type="Animation" id=7]
+length = 0.4
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 36 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("HitboxPivot/Hitbox/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.05, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true ]
+}
+
+[sub_resource type="Animation" id=8]
+length = 0.4
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 38 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("HitboxPivot/Hitbox/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.05, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true ]
+}
+
+[sub_resource type="Animation" id=9]
+length = 0.4
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 37, 39 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("HitboxPivot/Hitbox/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.05, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("EffectSprite:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.05, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("EffectSprite:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.05, 0.15, 0.25, 0.35 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 108, 109, 111, 110 ]
+}
+
+[sub_resource type="Animation" id=10]
+length = 0.4
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 42 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("HitboxPivot/Hitbox/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.05, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true ]
+}
+
+[sub_resource type="Animation" id=11]
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 40, 41 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("HitboxPivot/Hitbox/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true ]
+}
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=12]
+
+[sub_resource type="RectangleShape2D" id=13]
+extents = Vector2( 1.28999, 2.96128 )
+
+[sub_resource type="CapsuleShape2D" id=14]
+radius = 4.68618
+height = 12.379
+
+[node name="Player" type="KinematicBody2D"]
+collision_layer = 2
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 1.68176, 0 )
+texture = ExtResource( 1 )
+vframes = 16
+hframes = 18
+frame = 39
+
+[node name="ShadowSprite" type="Sprite" parent="."]
+scale = Vector2( 2, 1 )
+texture = ExtResource( 4 )
+offset = Vector2( 0, 21 )
+
+[node name="EffectSprite" type="Sprite" parent="."]
+visible = false
+texture = ExtResource( 1 )
+vframes = 16
+hframes = 18
+frame = 111
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Block = SubResource( 1 )
+anims/Breach = SubResource( 2 )
+anims/Idle = SubResource( 3 )
+anims/Kick1 = SubResource( 4 )
+anims/Kick2 = SubResource( 5 )
+anims/Move = SubResource( 6 )
+anims/Punch1 = SubResource( 7 )
+anims/Punch2 = SubResource( 8 )
+anims/Punch3 = SubResource( 9 )
+anims/Uppercut1 = SubResource( 10 )
+anims/Uppercut2 = SubResource( 11 )
+
+[node name="AnimationTree" parent="." instance=ExtResource( 5 )]
+parameters/playback = SubResource( 12 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0.0898743, 17.5861 )
+rotation = 1.5708
+shape = SubResource( 13 )
+
+[node name="HitboxPivot" type="Position2D" parent="."]
+
+[node name="Hitbox" parent="HitboxPivot" instance=ExtResource( 3 )]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" parent="HitboxPivot/Hitbox" index="0"]
+position = Vector2( 10.1584, 1.6888 )
+rotation = 1.5708
+shape = SubResource( 14 )
+disabled = true
+
+[node name="InputBuffer" parent="." instance=ExtResource( 6 )]
+combos = ExtResource( 7 )
+
+[node name="Hitlag" type="Timer" parent="."]
+one_shot = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[connection signal="area_entered" from="HitboxPivot/Hitbox" to="." method="_on_Hitbox_area_entered"]
+[connection signal="action_just_pressed" from="InputBuffer" to="." method="_on_InputBuffer_action_just_pressed"]
+[connection signal="action_just_released" from="InputBuffer" to="." method="_on_InputBuffer_action_just_released"]
+[connection signal="movement" from="InputBuffer" to="." method="_on_InputBuffer_movement"]
+[connection signal="timeout" from="Hitlag" to="." method="_on_Hitlag_timeout"]
+
+[editable path="HitboxPivot/Hitbox"]

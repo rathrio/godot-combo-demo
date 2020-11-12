@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://InputBuffer.gd" type="Script" id=1]
+
+[node name="InputBuffer" type="Node"]
+script = ExtResource( 1 )
+valid_inputs = PoolStringArray( "punch", "uppercut", "kick", "block" )
+
+[node name="ClearTimer" type="Timer" parent="."]
+
+[node name="PauseTimer" type="Timer" parent="."]
+[connection signal="timeout" from="ClearTimer" to="." method="_on_ClearTimer_timeout"]
+[connection signal="timeout" from="PauseTimer" to="." method="_on_PauseTimer_timeout"]
