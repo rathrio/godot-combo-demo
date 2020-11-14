@@ -306,7 +306,7 @@ tracks/1/keys = {
 extents = Vector2( 1.28999, 2.96128 )
 
 [sub_resource type="CapsuleShape2D" id=14]
-radius = 4.68618
+radius = 4.21867
 height = 12.379
 
 [node name="Player" type="KinematicBody2D"]
@@ -317,7 +317,6 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 1.68176, 0 )
 texture = ExtResource( 1 )
 vframes = 16
 hframes = 18
@@ -357,13 +356,14 @@ rotation = 1.5708
 shape = SubResource( 13 )
 
 [node name="HitboxPivot" type="Position2D" parent="."]
+position = Vector2( 0, 18 )
 
 [node name="Hitbox" parent="HitboxPivot" instance=ExtResource( 3 )]
+position = Vector2( 9, 0 )
 collision_layer = 0
 collision_mask = 8
 
 [node name="CollisionShape2D" parent="HitboxPivot/Hitbox" index="0"]
-position = Vector2( 10.1584, 1.6888 )
 rotation = 1.5708
 shape = SubResource( 14 )
 disabled = true
@@ -373,8 +373,6 @@ combos = ExtResource( 7 )
 
 [node name="Hitlag" type="Timer" parent="."]
 one_shot = true
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 [connection signal="area_entered" from="HitboxPivot/Hitbox" to="." method="_on_Hitbox_area_entered"]
 [connection signal="action_just_pressed" from="InputBuffer" to="." method="_on_InputBuffer_action_just_pressed"]
 [connection signal="action_just_released" from="InputBuffer" to="." method="_on_InputBuffer_action_just_released"]

@@ -30,6 +30,7 @@ position = Vector2( 0, 14.1046 )
 shape = SubResource( 1 )
 
 [node name="Hurtbox" parent="." instance=ExtResource( 1 )]
+position = Vector2( 0, 13 )
 collision_layer = 8
 collision_mask = 0
 
