@@ -1,0 +1,25 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Resource
+
+const Move = preload(\"../Util/Move.gd\")
+
+var moves: Dictionary
+
+func _init():
+	moves =  {
+		\"left\": Move.new(\"Left\"),
+		\"left left\": Move.new(\"DashLeft\", false, Vector2(300, 0)),
+		
+		\"right\": Move.new(\"Right\"),
+		\"right right\": Move.new(\"DashRight\", false, Vector2(300, 0)),
+		
+		\"up\": Move.new(\"Up\"),
+		
+		\"down\": Move.new(\"Down\")
+	}
+"
+
+[resource]
+script = SubResource( 1 )

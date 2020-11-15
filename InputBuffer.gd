@@ -1,12 +1,14 @@
 extends Node
 
 signal movement(move)
+signal pause()
 signal action_just_pressed(action)
 signal action_just_released(action)
-signal input_changed(input)
+signal buffer_changed(buffer)
 
 # Actions to observe and buffer
 export(PoolStringArray) var valid_inputs = []
+
 export(Resource) var combos
 export(float) var clear_time = 0.5
 export(float) var pause_time = 0.3
@@ -18,7 +20,7 @@ onready var clear_timer: Timer = $ClearTimer
 onready var pause_timer: Timer = $PauseTimer
 onready var moves: Dictionary = combos.moves
 
-var input: PoolStringArray = []
+var buffer: PoolStringArray = []
 
 const PAUSE_ACTION = 'pause'
 
@@ -31,7 +33,7 @@ func _ready():
 
 
 func _unhandled_input(event: InputEvent):
-	if input.size() >= max_sequence:
+	if buffer.size() >= max_sequence:
 		clear()
 
 	for action in valid_inputs:
@@ -51,7 +53,6 @@ func _unhandled_input(event: InputEvent):
 
 				if not move == null:
 					emit_signal("movement", move)
-					print("Emit: ", move.id)
 					if move.terminal:
 						clear()
 
@@ -75,7 +76,7 @@ func reset_pause_timer():
 
 
 func get_input_sequence_as_string() -> String:
-	return PoolStringArray(input).join(" ")
+	return PoolStringArray(buffer).join(" ")
 
 
 # E.g. "Punch2"
@@ -84,21 +85,19 @@ func get_current_move() -> String:
 
 
 func _on_PauseTimer_timeout():
-	if input.empty():
+	if buffer.empty():
 		return
 
 	append(PAUSE_ACTION)
+	emit_signal("pause")
 
 
 func append(action: String):
-	input.append(action)
-	emit_signal("input_changed", input)
+	buffer.append(action)
+	emit_signal("buffer_changed", buffer)
 	reset_clear_timer()
-	print(input)
 
 
 func clear():
-	if input.size() > 0:
-		print("Cleared input")
-	input = []
-	emit_signal("input_changed", input)
+	buffer = []
+	emit_signal("buffer_changed", buffer)

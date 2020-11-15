@@ -37,4 +37,5 @@ func _on_Hurtbox_area_entered(area):
 
 func _on_Hurtlag_timeout():
 	set_physics_process(true)
-	animation_player.play()
+	if not animation_player.current_animation == "":
+		animation_player.play()

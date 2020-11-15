@@ -7,7 +7,9 @@ const FRICTION = 600
 enum State {
 	MOVE,
 	ATTACK,
-	BLOCK
+	BLOCK,
+	DASH,
+	DASH_BACK
 }
 
 onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -44,8 +46,8 @@ func _physics_process(delta):
 
 func get_input() -> Vector2:
 	var input_vector = Vector2.ZERO
-	input_vector.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
-	input_vector.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
+	input_vector.x = Input.get_action_strength("right") - Input.get_action_strength("left")
+	input_vector.y = Input.get_action_strength("down") - Input.get_action_strength("up")
 	input_vector = input_vector.normalized()
 	return input_vector
 
@@ -61,15 +63,17 @@ func moving() -> bool:
 func blocking() -> bool:
 	return animation_state.get_current_node() == "Block"
 
+
+func dashing() -> bool:
+	return animation_state.get_current_node() == "Dash"
+
+
 func handle_movement(delta: float):
 	var input_vector = get_input()
 	if input_vector != Vector2.ZERO && breaching():
 		state = State.MOVE
-
-	if state == State.ATTACK:
-		return
-
-	if state == State.BLOCK:
+	
+	if not state == State.MOVE:
 		return
 
 	if input_vector != Vector2.ZERO:
@@ -94,7 +98,7 @@ func move():
 	velocity = move_and_slide(velocity)
 
 
-func _on_Hitbox_area_entered(area):
+func _on_Hitbox_area_entered(_area):
 	hitlag.start(hitlag_time)
 	set_physics_process(false)
 	animation_player.stop(false)
@@ -105,35 +109,69 @@ func _on_Hitlag_timeout():
 	animation_player.play()
 
 
-func _on_InputBuffer_movement(move: Move):
-	state = State.ATTACK
-	velocity = Vector2.ZERO
-	animation_state.travel(move.id)
+func block():
+	state = State.BLOCK
+	animation_state.travel("Block")
 
-	var velocity_factor = move.velocity
+
+func unblock():
+	state = State.MOVE
+	animation_state.travel("Breach")
+
+
+func _on_CombatBuffer_action_just_pressed(action):
+	match action:
+		"block":
+			if not blocking():
+				block()
+
+func apply_velocity_factor(velocity_factor: Vector2):
 	if velocity_factor != Vector2.ZERO:
 		velocity = direction
 		velocity.x *= velocity_factor.x
 		velocity.y *= velocity_factor.y
 
 
-func _on_InputBuffer_action_just_pressed(action: String):
-	match action:
-		"block":
-			if not blocking():
-				block()
-
-
-func _on_InputBuffer_action_just_released(action: String):
+func _on_CombatBuffer_action_just_released(action):
 	match action:
 		"block":
 			if blocking():
 				unblock()
 
-func block():
-	state = State.BLOCK
-	animation_state.travel("Block")
 
-func unblock():
-	state = State.MOVE
-	animation_state.travel("Breach")
+func _on_CombatBuffer_movement(move):
+	state = State.ATTACK
+	velocity = Vector2.ZERO
+	animation_state.travel(move.id)
+	apply_velocity_factor(move.velocity)
+
+
+func _on_CombatBuffer_pause():
+	if blocking():
+		return
+	# TODO some visual combo pause hint
+
+
+func _on_MovementBuffer_movement(move):
+	if state == State.BLOCK:
+		match move.id:
+			"DashRight":
+				if direction == Vector2.RIGHT:
+					state = State.DASH
+					animation_state.travel("Dash")
+					apply_velocity_factor(move.velocity)
+				else:
+					state = State.DASH_BACK
+					animation_state.travel("DashBack")
+					apply_velocity_factor(move.velocity * -0.7)
+			"DashLeft":
+				if direction == Vector2.LEFT:
+					state = State.DASH
+					animation_state.travel("Dash")
+					apply_velocity_factor(move.velocity)
+				else:
+					state = State.DASH_BACK
+					animation_state.travel("DashBack")
+					apply_velocity_factor(move.velocity * -0.7)
+
+

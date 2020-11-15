@@ -1,38 +1,39 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=38 format=2]
 
-[sub_resource type="AnimationNodeAnimation" id=1]
+[sub_resource type="AnimationNodeAnimation" id=37]
 animation = "Block"
 
-[sub_resource type="AnimationNodeAnimation" id=2]
+[sub_resource type="AnimationNodeAnimation" id=38]
 animation = "Breach"
 
-[sub_resource type="AnimationNodeAnimation" id=3]
+[sub_resource type="AnimationNodeAnimation" id=39]
+animation = "Dash"
+
+[sub_resource type="AnimationNodeAnimation" id=40]
 animation = "Kick1"
 
-[sub_resource type="AnimationNodeAnimation" id=4]
+[sub_resource type="AnimationNodeAnimation" id=41]
 animation = "Kick2"
 
-[sub_resource type="AnimationNodeAnimation" id=5]
+[sub_resource type="AnimationNodeAnimation" id=42]
 animation = "Move"
 
-[sub_resource type="AnimationNodeAnimation" id=6]
+[sub_resource type="AnimationNodeAnimation" id=43]
 animation = "Punch1"
 
-[sub_resource type="AnimationNodeAnimation" id=7]
+[sub_resource type="AnimationNodeAnimation" id=44]
 animation = "Punch2"
 
-[sub_resource type="AnimationNodeAnimation" id=8]
+[sub_resource type="AnimationNodeAnimation" id=45]
 animation = "Punch3"
 
-[sub_resource type="AnimationNodeAnimation" id=9]
+[sub_resource type="AnimationNodeAnimation" id=46]
 animation = "Uppercut1"
 
-[sub_resource type="AnimationNodeAnimation" id=10]
+[sub_resource type="AnimationNodeAnimation" id=47]
 animation = "Uppercut2"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=11]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=12]
+[sub_resource type="AnimationNodeStateMachineTransition" id=48]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=13]
 
@@ -43,8 +44,6 @@ animation = "Uppercut2"
 [sub_resource type="AnimationNodeStateMachineTransition" id=16]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=17]
-switch_mode = 2
-auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=18]
 switch_mode = 2
@@ -71,6 +70,8 @@ switch_mode = 2
 auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=24]
+switch_mode = 2
+auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=25]
 
@@ -88,34 +89,44 @@ auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=32]
 
-[sub_resource type="AnimationNodeStateMachine" id=33]
-states/Block/node = SubResource( 1 )
-states/Block/position = Vector2( 104.109, -115.817 )
-states/Breach/node = SubResource( 2 )
-states/Breach/position = Vector2( 416.109, -85.912 )
-states/Kick1/node = SubResource( 3 )
-states/Kick1/position = Vector2( 334.63, -294.511 )
-states/Kick2/node = SubResource( 4 )
-states/Kick2/position = Vector2( 469.13, -294.511 )
-states/Move/node = SubResource( 5 )
-states/Move/position = Vector2( 221.065, 171.088 )
-states/Punch1/node = SubResource( 6 )
-states/Punch1/position = Vector2( 551, 125 )
-states/Punch2/node = SubResource( 7 )
-states/Punch2/position = Vector2( 698, 125 )
-states/Punch3/node = SubResource( 8 )
-states/Punch3/position = Vector2( 845, 125 )
-states/Uppercut1/node = SubResource( 9 )
-states/Uppercut1/position = Vector2( 942.5, -137.278 )
-states/Uppercut2/node = SubResource( 10 )
-states/Uppercut2/position = Vector2( 942.5, -60.778 )
-transitions = [ "Punch1", "Punch2", SubResource( 11 ), "Punch2", "Punch3", SubResource( 12 ), "Uppercut1", "Uppercut2", SubResource( 13 ), "Punch2", "Uppercut2", SubResource( 14 ), "Kick1", "Kick2", SubResource( 15 ), "Punch2", "Kick2", SubResource( 16 ), "Kick1", "Breach", SubResource( 17 ), "Kick2", "Breach", SubResource( 18 ), "Punch1", "Breach", SubResource( 19 ), "Punch2", "Breach", SubResource( 20 ), "Punch3", "Breach", SubResource( 21 ), "Uppercut1", "Breach", SubResource( 22 ), "Uppercut2", "Breach", SubResource( 23 ), "Breach", "Move", SubResource( 24 ), "Move", "Breach", SubResource( 25 ), "Move", "Kick1", SubResource( 26 ), "Move", "Punch1", SubResource( 27 ), "Move", "Uppercut1", SubResource( 28 ), "Breach", "Block", SubResource( 29 ), "Move", "Block", SubResource( 30 ), "Block", "Move", SubResource( 31 ), "Block", "Breach", SubResource( 32 ) ]
-start_node = "Breach"
-graph_offset = Vector2( -2.891, -263.817 )
+[sub_resource type="AnimationNodeStateMachineTransition" id=33]
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=34]
+[sub_resource type="AnimationNodeStateMachineTransition" id=34]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=35]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachine" id=36]
+states/Block/node = SubResource( 37 )
+states/Block/position = Vector2( 104.109, -115.817 )
+states/Breach/node = SubResource( 38 )
+states/Breach/position = Vector2( 416.109, -85.912 )
+states/Dash/node = SubResource( 39 )
+states/Dash/position = Vector2( 29.109, 38.183 )
+states/Kick1/node = SubResource( 40 )
+states/Kick1/position = Vector2( 334.63, -294.511 )
+states/Kick2/node = SubResource( 41 )
+states/Kick2/position = Vector2( 469.13, -294.511 )
+states/Move/node = SubResource( 42 )
+states/Move/position = Vector2( 221.065, 171.088 )
+states/Punch1/node = SubResource( 43 )
+states/Punch1/position = Vector2( 551, 125 )
+states/Punch2/node = SubResource( 44 )
+states/Punch2/position = Vector2( 698, 125 )
+states/Punch3/node = SubResource( 45 )
+states/Punch3/position = Vector2( 845, 125 )
+states/Uppercut1/node = SubResource( 46 )
+states/Uppercut1/position = Vector2( 942.5, -137.278 )
+states/Uppercut2/node = SubResource( 47 )
+states/Uppercut2/position = Vector2( 942.5, -60.778 )
+transitions = [ "Punch1", "Punch2", SubResource( 48 ), "Punch2", "Punch3", SubResource( 13 ), "Uppercut1", "Uppercut2", SubResource( 14 ), "Punch2", "Uppercut2", SubResource( 15 ), "Kick1", "Kick2", SubResource( 16 ), "Punch2", "Kick2", SubResource( 17 ), "Kick1", "Breach", SubResource( 18 ), "Kick2", "Breach", SubResource( 19 ), "Punch1", "Breach", SubResource( 20 ), "Punch2", "Breach", SubResource( 21 ), "Punch3", "Breach", SubResource( 22 ), "Uppercut1", "Breach", SubResource( 23 ), "Uppercut2", "Breach", SubResource( 24 ), "Breach", "Move", SubResource( 25 ), "Move", "Breach", SubResource( 26 ), "Move", "Kick1", SubResource( 27 ), "Move", "Punch1", SubResource( 28 ), "Move", "Uppercut1", SubResource( 29 ), "Breach", "Block", SubResource( 30 ), "Move", "Block", SubResource( 31 ), "Block", "Move", SubResource( 32 ), "Block", "Breach", SubResource( 33 ), "Block", "Dash", SubResource( 34 ), "Dash", "Breach", SubResource( 35 ) ]
+start_node = "Breach"
+graph_offset = Vector2( -277.891, -489.817 )
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=49]
 
 [node name="AnimationTree" type="AnimationTree"]
-tree_root = SubResource( 33 )
+tree_root = SubResource( 36 )
 anim_player = NodePath("../AnimationPlayer")
-parameters/playback = SubResource( 34 )
+parameters/playback = SubResource( 49 )
