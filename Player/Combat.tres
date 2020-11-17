@@ -12,11 +12,7 @@ func _init():
 		\"punch\": Move.new(\"Punch1\"),
 		\"punch punch\": Move.new(\"Punch2\"),
 
-		\"uppercut\": Move.new(\"Uppercut1\"),
-		\"uppercut uppercut\": Move.new(\"Uppercut2\", true),
-
 		\"kick\": Move.new(\"Kick1\"),
-		\"kick kick\": Move.new(\"Kick2\", true, Vector2(100, 0)),
 
 		\"punch punch pause punch\": Move.new(\"Punch3\", true, Vector2(250, 0)),
 		

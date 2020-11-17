@@ -72,7 +72,7 @@ func handle_movement(delta: float):
 	var input_vector = get_input()
 	if input_vector != Vector2.ZERO && breaching():
 		state = State.MOVE
-	
+
 	if not state == State.MOVE:
 		return
 
@@ -119,17 +119,17 @@ func unblock():
 	animation_state.travel("Breach")
 
 
-func _on_CombatBuffer_action_just_pressed(action):
-	match action:
-		"block":
-			if not blocking():
-				block()
-
 func apply_velocity_factor(velocity_factor: Vector2):
 	if velocity_factor != Vector2.ZERO:
 		velocity = direction
 		velocity.x *= velocity_factor.x
 		velocity.y *= velocity_factor.y
+
+func _on_CombatBuffer_action_just_pressed(action):
+	match action:
+		"block":
+			if not blocking():
+				block()
 
 
 func _on_CombatBuffer_action_just_released(action):
@@ -140,10 +140,22 @@ func _on_CombatBuffer_action_just_released(action):
 
 
 func _on_CombatBuffer_movement(move):
-	state = State.ATTACK
 	velocity = Vector2.ZERO
-	animation_state.travel(move.id)
-	apply_velocity_factor(move.velocity)
+
+	if dashing():
+		# TODO: model this in Move.gd
+		match move.id:
+			"Punch1":
+				animation_state.travel("Uppercut1")
+				apply_velocity_factor(Vector2(150, 0))
+			"Kick1":
+				animation_state.travel("Kick2")
+				apply_velocity_factor(Vector2(150, 0))
+	else:
+		animation_state.travel(move.id)
+		apply_velocity_factor(move.velocity)
+
+	state = State.ATTACK
 
 
 func _on_CombatBuffer_pause():
@@ -153,7 +165,7 @@ func _on_CombatBuffer_pause():
 
 
 func _on_MovementBuffer_movement(move):
-	if state == State.BLOCK:
+	if blocking():
 		match move.id:
 			"DashRight":
 				if direction == Vector2.RIGHT:

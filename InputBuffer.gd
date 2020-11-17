@@ -32,7 +32,7 @@ func _ready():
 	pause_timer.autostart = false
 
 
-func _unhandled_input(event: InputEvent):
+func _input(event: InputEvent):
 	if buffer.size() >= max_sequence:
 		clear()
 
