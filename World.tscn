@@ -6,9 +6,9 @@
 [ext_resource path="res://Fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://ComboUI.gd" type="Script" id=5]
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=2]
+[sub_resource type="AnimationNodeStateMachinePlayback" id=1]
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFont" id=2]
 size = 12
 font_data = ExtResource( 4 )
 
@@ -29,7 +29,7 @@ position = Vector2( 215.533, 97.9586 )
 collision_layer = 2
 
 [node name="AnimationTree" parent="YSort/Player" index="4"]
-parameters/playback = SubResource( 2 )
+parameters/playback = SubResource( 1 )
 
 [node name="HumanEnemy" parent="YSort" instance=ExtResource( 3 )]
 position = Vector2( 132.066, 95.5489 )
@@ -59,7 +59,7 @@ margin_left = 4.71938
 margin_top = -7.96968
 margin_right = 219.719
 margin_bottom = 12.0303
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 text = "Input"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -74,7 +74,7 @@ margin_left = -94.551
 margin_top = -6.83032
 margin_right = -7.55103
 margin_bottom = 13.1697
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 text = "Move"
 align = 2
 __meta__ = {

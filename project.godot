@@ -9,19 +9,19 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node",
+"class": "Health",
+"language": "GDScript",
+"path": "res://Health.gd"
+}, {
 "base": "Resource",
 "class": "Move",
 "language": "GDScript",
 "path": "res://Util/Move.gd"
-}, {
-"base": "Node",
-"class": "StateMachine",
-"language": "GDScript",
-"path": "res://Player/StateMachine.gd"
 } ]
 _global_script_class_icons={
-"Move": "",
-"StateMachine": ""
+"Health": "",
+"Move": ""
 }
 
 [application]

@@ -1,12 +1,19 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Hurtbox.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Enemy/Enemy.gd" type="Script" id=2]
+[ext_resource path="res://Fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Health.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Enemy/HealthUI.gd" type="Script" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 12.1772, 9.48658 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 12
+font_data = ExtResource( 3 )
 
 [node name="Enemy" type="KinematicBody2D"]
 collision_layer = 2147483664
@@ -41,7 +48,24 @@ shape = SubResource( 2 )
 [node name="Hurtlag" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
+
+[node name="HealthUI" type="Label" parent="."]
+margin_left = -15.0568
+margin_top = -34.0636
+margin_right = 14.9432
+margin_bottom = -18.0636
+custom_fonts/font = SubResource( 3 )
+align = 1
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Health" parent="." instance=ExtResource( 4 )]
+max_health = 50
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
 [connection signal="timeout" from="Hurtlag" to="." method="_on_Hurtlag_timeout"]
+[connection signal="changed" from="Health" to="HealthUI" method="_on_Health_changed"]
+[connection signal="depleted" from="Health" to="." method="_on_Health_depleted"]
 
 [editable path="Hurtbox"]
