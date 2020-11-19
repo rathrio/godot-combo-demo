@@ -3,6 +3,8 @@ extends Resource
 class_name Move
 
 var id: String
+
+# Will clear buffer, i.e., acts as a finisher in a combo.
 var terminal: bool
 
 # Velocity factors per axis

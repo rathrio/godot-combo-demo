@@ -17,6 +17,7 @@ onready var animation_tree: AnimationTree = $AnimationTree
 onready var animation_state: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/playback")
 
 onready var sprite: Sprite = $Sprite
+onready var effect_sprite: Sprite = $EffectSprite
 onready var hitbox: Position2D = $HitboxPivot
 onready var hitbox_area: Area2D = hitbox.get_node("Hitbox")
 onready var hitlag: Timer = $Hitlag
@@ -31,6 +32,7 @@ var state = State.MOVE
 func _ready():
 	animation_tree.active = true
 	hitbox.get_node("Hitbox/CollisionShape2D").disabled = true
+	effect_sprite.visible = false
 
 
 func _physics_process(delta):

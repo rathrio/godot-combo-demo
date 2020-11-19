@@ -9,7 +9,7 @@
 [sub_resource type="AnimationNodeStateMachinePlayback" id=1]
 
 [sub_resource type="DynamicFont" id=2]
-size = 12
+size = 8
 font_data = ExtResource( 4 )
 
 [node name="World" type="Node2D"]
@@ -61,6 +61,7 @@ margin_right = 219.719
 margin_bottom = 12.0303
 custom_fonts/font = SubResource( 2 )
 text = "Input"
+autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }

@@ -9,5 +9,8 @@ valid_inputs = PoolStringArray( "punch", "uppercut", "kick", "block" )
 [node name="ClearTimer" type="Timer" parent="."]
 
 [node name="PauseTimer" type="Timer" parent="."]
+
+[node name="FreezeTimer" type="Timer" parent="."]
 [connection signal="timeout" from="ClearTimer" to="." method="_on_ClearTimer_timeout"]
 [connection signal="timeout" from="PauseTimer" to="." method="_on_PauseTimer_timeout"]
+[connection signal="timeout" from="FreezeTimer" to="." method="_on_FreezeTimer_timeout"]

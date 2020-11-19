@@ -11,13 +11,12 @@ func _init():
 	moves =  {
 		\"punch\": Move.new(\"Punch1\"),
 		\"punch punch\": Move.new(\"Punch2\"),
+		\"punch punch punch\": Move.new(\"Punch3\", false, Vector2(100, 0)),
 
 		\"kick\": Move.new(\"Kick1\"),
 
-		\"punch punch pause punch\": Move.new(\"Punch3\", true, Vector2(250, 0)),
-		
-		\"dir\": Move.new(\"NONE\"),
-		\"dir dir\": Move.new(\"Dash\", true, Vector2(300, 0))
+		\"punch punch punch pause punch\": Move.new(\"Uppercut1\", false, Vector2(100, 0)),
+		\"punch punch punch pause punch pause punch\": Move.new(\"SuperPunch\", true, Vector2(250, 0)),
 	}
 "
 
