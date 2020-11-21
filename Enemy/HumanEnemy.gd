@@ -13,8 +13,8 @@ var knockback := Vector2.ZERO
 
 const KNOCKBACK_STRENGTH := 100
 const KNOCKBACK_FRICTION := 300
-const LAUNCH_APEX := Vector2(0, -30)
-const LAUNCH_DURATION := 0.4
+const LAUNCH_APEX := Vector2(0, -40)
+const LAUNCH_DURATION := 0.5
 
 enum State {
 	MOVE,
@@ -53,7 +53,7 @@ func launch():
 		sprite.offset,
 		LAUNCH_APEX,
 		LAUNCH_DURATION,
-		Tween.TRANS_CIRC,
+		Tween.TRANS_EXPO,
 		Tween.EASE_OUT
 	)
 	tween.start()
@@ -77,18 +77,15 @@ func land():
 	animation_state.travel("Land")
 
 func _physics_process(delta):
-	knockback = knockback.move_toward(Vector2.ZERO, KNOCKBACK_FRICTION * delta)
-	knockback = move_and_slide(knockback)
+	reorient_sprite()
 	
-	if direction == Vector2.RIGHT:
-		sprite.flip_h = false
-	else:
-		sprite.flip_h = true
+	var knockback_friction = KNOCKBACK_FRICTION
+	if launched():
+		# Less "friction" in air
+		knockback_friction *= 0.7
+	knockback = knockback.move_toward(Vector2.ZERO, knockback_friction * delta)
+	knockback = move_and_slide(knockback)
 
-	# TODO remove and bind to launch damage
-	if Input.is_action_just_pressed("ui_accept"):
-		launch()
-		
 	if at_launch_apex():
 		fall()
 
@@ -98,17 +95,24 @@ func _on_Hurtbox_area_entered(area):
 	if not knockback_vector == null:
 		knockback = knockback_vector * KNOCKBACK_STRENGTH
 		# Face player when getting attacked
-		direction = knockback_vector * -1
-
-	if launched():
-		animation_state.travel("Hurt3")
+		direction = knockback_vector.normalized() * -1
+		reorient_sprite()
+		
+	var move = area.get("move")
+	if not move == null and move.launch:
+		launch()
 	else:
-		animation_state.travel("Hurt1")
+		if launched():
+			animation_state.travel("Hurt3")
+		else:
+			animation_state.travel("Hurt1")
 		
 	hurtlag.start(hurtlag_time)
 	set_physics_process(false)
 	animation_player.stop(false)
 
+func reorient_sprite():
+	sprite.flip_h = direction != Vector2.RIGHT
 
 func _on_Hurtlag_timeout():
 	set_physics_process(true)

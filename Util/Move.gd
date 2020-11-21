@@ -17,3 +17,4 @@ func _init(id: String, terminal = false, velocity = Vector2.ZERO, launch = false
 	self.id = id
 	self.terminal = terminal
 	self.velocity = velocity
+	self.launch = launch

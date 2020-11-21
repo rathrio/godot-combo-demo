@@ -193,6 +193,9 @@ func _on_DashBuffer_movement(move: Move):
 
 # Execute move as is, i.e., the id can be used as animation and velocity does
 # not need to be processed and can be applied directly.
+#
+# Note that this also sets the hitbox's move property.
 func execute_move(move: Move):
+	hitbox_area.move = move
 	animation_state.travel(move.id)
 	apply_velocity_factor(move.velocity)
