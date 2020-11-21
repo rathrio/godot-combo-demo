@@ -28,6 +28,9 @@ __meta__ = {
 position = Vector2( 215.533, 97.9586 )
 collision_layer = 2
 
+[node name="Sprite" parent="YSort/Player" index="0"]
+frame = 36
+
 [node name="AnimationTree" parent="YSort/Player" index="4"]
 parameters/playback = SubResource( 1 )
 

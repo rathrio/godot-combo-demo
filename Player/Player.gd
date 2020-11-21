@@ -120,7 +120,6 @@ func unblock():
 	state = State.MOVE
 	animation_state.travel("Breach")
 
-
 func apply_velocity_factor(velocity_factor: Vector2):
 	if velocity_factor != Vector2.ZERO:
 		velocity = direction

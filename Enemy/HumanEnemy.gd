@@ -6,11 +6,13 @@ onready var animation_player: AnimationPlayer = $AnimationPlayer
 onready var animation_tree: AnimationTree = $AnimationTree
 onready var animation_state: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/playback")
 onready var hurtlag = $Hurtlag
+onready var sprite: Sprite = $Sprite
 
 var knockback = Vector2.ZERO
 
 const KNOCKBACK_STRENGTH = 100
 const KNOCKBACK_FRICTION = 300
+const GRAVITY = 100
 
 func _ready():
 	animation_tree.active = true
@@ -22,7 +24,14 @@ func _ready():
 func _physics_process(delta):
 	knockback = knockback.move_toward(Vector2.ZERO, KNOCKBACK_FRICTION * delta)
 	knockback = move_and_slide(knockback)
+	apply_gravity(delta)
 
+
+func apply_gravity(delta: float):
+	if sprite.offset == Vector2.ZERO:
+		return
+
+	sprite.offset = sprite.offset.move_toward(Vector2.ZERO, GRAVITY * delta)
 
 func _on_Hurtbox_area_entered(area):
 	var knockback_vector = area.get("knockback")

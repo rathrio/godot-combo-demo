@@ -243,7 +243,7 @@ tracks/2/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=58]
+[sub_resource type="Animation" id=11]
 resource_name = "Punch3"
 length = 0.4
 step = 0.05
@@ -286,8 +286,7 @@ tracks/2/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=11]
-resource_name = "SuperPunch"
+[sub_resource type="Animation" id=12]
 length = 0.5
 step = 0.05
 tracks/0/type = "value"
@@ -353,7 +352,7 @@ tracks/4/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=13]
 length = 0.4
 step = 0.05
 tracks/0/type = "value"
@@ -395,7 +394,7 @@ tracks/2/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=14]
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -436,59 +435,89 @@ tracks/2/keys = {
 } ]
 }
 
-[sub_resource type="AnimationNodeAnimation" id=14]
+[sub_resource type="AnimationNodeAnimation" id=15]
 animation = "Block"
 
-[sub_resource type="AnimationNodeAnimation" id=15]
+[sub_resource type="AnimationNodeAnimation" id=16]
 animation = "Breach"
 
-[sub_resource type="AnimationNodeAnimation" id=16]
+[sub_resource type="AnimationNodeAnimation" id=17]
 animation = "Dash"
 
-[sub_resource type="AnimationNodeAnimation" id=17]
+[sub_resource type="AnimationNodeAnimation" id=18]
 animation = "DashBack"
 
-[sub_resource type="AnimationNodeAnimation" id=20]
+[sub_resource type="AnimationNodeAnimation" id=19]
 animation = "Move"
 
-[sub_resource type="AnimationNodeAnimation" id=21]
+[sub_resource type="AnimationNodeAnimation" id=20]
 animation = "Punch1"
 
-[sub_resource type="AnimationNodeAnimation" id=22]
+[sub_resource type="AnimationNodeAnimation" id=21]
 animation = "Punch2"
 
-[sub_resource type="AnimationNodeAnimation" id=59]
+[sub_resource type="AnimationNodeAnimation" id=22]
 animation = "Punch3"
 
-[sub_resource type="AnimationNodeAnimation" id=62]
+[sub_resource type="AnimationNodeAnimation" id=23]
 animation = "SuperPunch"
 
 [sub_resource type="AnimationNodeAnimation" id=24]
 animation = "Uppercut1"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id=25]
+
 [sub_resource type="AnimationNodeStateMachineTransition" id=26]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=27]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=28]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=29]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=30]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=31]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=32]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=33]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=34]
-switch_mode = 2
-auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=35]
-switch_mode = 2
-auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=36]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=37]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=38]
 switch_mode = 2
 auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=39]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=40]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=41]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=42]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=43]
+switch_mode = 2
+auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=44]
+switch_mode = 2
+auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=45]
 
@@ -496,67 +525,37 @@ auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=47]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=48]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=49]
-switch_mode = 2
-auto_advance = true
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=50]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=51]
-switch_mode = 2
-auto_advance = true
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=52]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=60]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=61]
-switch_mode = 2
-auto_advance = true
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=64]
-switch_mode = 2
-auto_advance = true
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=66]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=67]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=68]
-
-[sub_resource type="AnimationNodeStateMachine" id=54]
-states/Block/node = SubResource( 14 )
+[sub_resource type="AnimationNodeStateMachine" id=48]
+states/Block/node = SubResource( 15 )
 states/Block/position = Vector2( 104.109, -115.817 )
-states/Breach/node = SubResource( 15 )
+states/Breach/node = SubResource( 16 )
 states/Breach/position = Vector2( 416.109, -85.912 )
-states/Dash/node = SubResource( 16 )
+states/Dash/node = SubResource( 17 )
 states/Dash/position = Vector2( 184.109, -518.817 )
-states/DashBack/node = SubResource( 17 )
+states/DashBack/node = SubResource( 18 )
 states/DashBack/position = Vector2( -169.891, -26.817 )
-states/Move/node = SubResource( 20 )
+states/Move/node = SubResource( 19 )
 states/Move/position = Vector2( 221.065, 171.088 )
-states/Punch1/node = SubResource( 21 )
+states/Punch1/node = SubResource( 20 )
 states/Punch1/position = Vector2( 551, 125 )
-states/Punch2/node = SubResource( 22 )
+states/Punch2/node = SubResource( 21 )
 states/Punch2/position = Vector2( 698, 125 )
-states/Punch3/node = SubResource( 59 )
+states/Punch3/node = SubResource( 22 )
 states/Punch3/position = Vector2( 862.109, 125 )
-states/SuperPunch/node = SubResource( 62 )
+states/SuperPunch/node = SubResource( 23 )
 states/SuperPunch/position = Vector2( 980.109, -207.817 )
 states/Uppercut1/node = SubResource( 24 )
 states/Uppercut1/position = Vector2( 641.5, -425.278 )
-transitions = [ "Punch1", "Punch2", SubResource( 26 ), "Punch1", "Breach", SubResource( 34 ), "Punch2", "Breach", SubResource( 35 ), "Uppercut1", "Breach", SubResource( 37 ), "Breach", "Move", SubResource( 39 ), "Move", "Breach", SubResource( 40 ), "Move", "Punch1", SubResource( 42 ), "Move", "Uppercut1", SubResource( 43 ), "Breach", "Block", SubResource( 44 ), "Move", "Block", SubResource( 45 ), "Block", "Move", SubResource( 46 ), "Block", "Breach", SubResource( 47 ), "Block", "Dash", SubResource( 48 ), "Dash", "Breach", SubResource( 49 ), "Block", "DashBack", SubResource( 50 ), "DashBack", "Breach", SubResource( 51 ), "Dash", "Uppercut1", SubResource( 52 ), "Punch2", "Punch3", SubResource( 60 ), "Punch3", "Breach", SubResource( 61 ), "SuperPunch", "Breach", SubResource( 64 ), "Uppercut1", "SuperPunch", SubResource( 66 ), "Punch3", "Uppercut1", SubResource( 67 ), "Uppercut1", "Punch2", SubResource( 68 ) ]
+transitions = [ "Punch1", "Punch2", SubResource( 25 ), "Punch1", "Breach", SubResource( 26 ), "Punch2", "Breach", SubResource( 27 ), "Uppercut1", "Breach", SubResource( 28 ), "Breach", "Move", SubResource( 29 ), "Move", "Breach", SubResource( 30 ), "Move", "Punch1", SubResource( 31 ), "Move", "Uppercut1", SubResource( 32 ), "Breach", "Block", SubResource( 33 ), "Move", "Block", SubResource( 34 ), "Block", "Move", SubResource( 35 ), "Block", "Breach", SubResource( 36 ), "Block", "Dash", SubResource( 37 ), "Dash", "Breach", SubResource( 38 ), "Block", "DashBack", SubResource( 39 ), "DashBack", "Breach", SubResource( 40 ), "Dash", "Uppercut1", SubResource( 41 ), "Punch2", "Punch3", SubResource( 42 ), "Punch3", "Breach", SubResource( 43 ), "SuperPunch", "Breach", SubResource( 44 ), "Uppercut1", "SuperPunch", SubResource( 45 ), "Punch3", "Uppercut1", SubResource( 46 ), "Uppercut1", "Punch2", SubResource( 47 ) ]
 start_node = "Breach"
 graph_offset = Vector2( -135.891, -506.817 )
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=55]
+[sub_resource type="AnimationNodeStateMachinePlayback" id=49]
 
-[sub_resource type="RectangleShape2D" id=56]
+[sub_resource type="RectangleShape2D" id=50]
 extents = Vector2( 1.28999, 2.96128 )
 
-[sub_resource type="CapsuleShape2D" id=57]
+[sub_resource type="CapsuleShape2D" id=51]
 radius = 4.21867
 height = 12.379
 
@@ -570,7 +569,7 @@ __meta__ = {
 texture = ExtResource( 1 )
 vframes = 16
 hframes = 18
-frame = 54
+frame = 40
 
 [node name="ShadowSprite" type="Sprite" parent="."]
 scale = Vector2( 2, 1 )
@@ -594,20 +593,20 @@ anims/Kick2 = SubResource( 7 )
 anims/Move = SubResource( 8 )
 anims/Punch1 = SubResource( 9 )
 anims/Punch2 = SubResource( 10 )
-anims/Punch3 = SubResource( 58 )
-anims/SuperPunch = SubResource( 11 )
-anims/Uppercut1 = SubResource( 12 )
-anims/Uppercut2 = SubResource( 13 )
+anims/Punch3 = SubResource( 11 )
+anims/SuperPunch = SubResource( 12 )
+anims/Uppercut1 = SubResource( 13 )
+anims/Uppercut2 = SubResource( 14 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 54 )
+tree_root = SubResource( 48 )
 anim_player = NodePath("../AnimationPlayer")
-parameters/playback = SubResource( 55 )
+parameters/playback = SubResource( 49 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0.0898743, 17.5861 )
 rotation = 1.5708
-shape = SubResource( 56 )
+shape = SubResource( 50 )
 
 [node name="HitboxPivot" type="Position2D" parent="."]
 position = Vector2( 0, 18 )
@@ -619,7 +618,7 @@ collision_mask = 8
 
 [node name="CollisionShape2D" parent="HitboxPivot/Hitbox" index="0"]
 rotation = 1.5708
-shape = SubResource( 57 )
+shape = SubResource( 51 )
 
 [node name="CombatBuffer" parent="." instance=ExtResource( 6 )]
 valid_inputs = PoolStringArray( "punch", "kick", "block" )
