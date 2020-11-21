@@ -1,0 +1,18 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Resource
+
+const Move = preload(\"../Util/Move.gd\")
+
+var moves: Dictionary
+
+# Dash combos
+func _init():
+	moves =  {
+		\"punch\": Move.new(\"Uppercut1\", false, Vector2(150, 0), true),
+	}
+"
+
+[resource]
+script = SubResource( 1 )

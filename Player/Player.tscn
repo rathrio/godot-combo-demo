@@ -1,9 +1,10 @@
-[gd_scene load_steps=59 format=2]
+[gd_scene load_steps=60 format=2]
 
 [ext_resource path="res://Player/Char_3.png" type="Texture" id=1]
 [ext_resource path="res://Player/Player.gd" type="Script" id=2]
 [ext_resource path="res://Hitbox.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Art/MediumShadow.png" type="Texture" id=4]
+[ext_resource path="res://Player/Dash.tres" type="Resource" id=5]
 [ext_resource path="res://InputBuffer.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Player/Combat.tres" type="Resource" id=7]
 [ext_resource path="res://Player/Movement.tres" type="Resource" id=8]
@@ -628,6 +629,10 @@ combos = ExtResource( 7 )
 valid_inputs = PoolStringArray( "up", "down", "left", "right" )
 combos = ExtResource( 8 )
 
+[node name="DashBuffer" parent="." instance=ExtResource( 6 )]
+valid_inputs = PoolStringArray( "punch", "kick" )
+combos = ExtResource( 5 )
+
 [node name="Hitlag" type="Timer" parent="."]
 one_shot = true
 [connection signal="area_entered" from="HitboxPivot/Hitbox" to="." method="_on_Hitbox_area_entered"]
@@ -636,6 +641,7 @@ one_shot = true
 [connection signal="movement" from="CombatBuffer" to="." method="_on_CombatBuffer_movement"]
 [connection signal="pause" from="CombatBuffer" to="." method="_on_CombatBuffer_pause"]
 [connection signal="movement" from="MovementBuffer" to="." method="_on_MovementBuffer_movement"]
+[connection signal="movement" from="DashBuffer" to="." method="_on_DashBuffer_movement"]
 [connection signal="timeout" from="Hitlag" to="." method="_on_Hitlag_timeout"]
 
 [editable path="HitboxPivot/Hitbox"]

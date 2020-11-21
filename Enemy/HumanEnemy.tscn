@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Enemy/Char_3_No_Armor.png" type="Texture" id=1]
 [ext_resource path="res://Hurtbox.tscn" type="PackedScene" id=2]
@@ -73,11 +73,36 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 
+[sub_resource type="Animation" id=16]
+resource_name = "Land"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 16 ]
+}
+
 [sub_resource type="AnimationNodeAnimation" id=7]
 animation = "Hurt1"
 
+[sub_resource type="AnimationNodeAnimation" id=13]
+animation = "Hurt2"
+
+[sub_resource type="AnimationNodeAnimation" id=20]
+animation = "Hurt3"
+
 [sub_resource type="AnimationNodeAnimation" id=8]
 animation = "Idle"
+
+[sub_resource type="AnimationNodeAnimation" id=17]
+animation = "Land"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=9]
 
@@ -85,13 +110,38 @@ animation = "Idle"
 switch_mode = 2
 auto_advance = true
 
+[sub_resource type="AnimationNodeStateMachineTransition" id=14]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=15]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=18]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=19]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=21]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=22]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=23]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=24]
+
 [sub_resource type="AnimationNodeStateMachine" id=11]
 states/Hurt1/node = SubResource( 7 )
 states/Hurt1/position = Vector2( 763.5, 189.5 )
+states/Hurt2/node = SubResource( 13 )
+states/Hurt2/position = Vector2( 758, 283 )
+states/Hurt3/node = SubResource( 20 )
+states/Hurt3/position = Vector2( 907, 326 )
 states/Idle/node = SubResource( 8 )
 states/Idle/position = Vector2( 562, 253 )
-transitions = [ "Idle", "Hurt1", SubResource( 9 ), "Hurt1", "Idle", SubResource( 10 ) ]
+states/Land/node = SubResource( 17 )
+states/Land/position = Vector2( 627, 365 )
+transitions = [ "Idle", "Hurt1", SubResource( 9 ), "Hurt1", "Idle", SubResource( 10 ), "Hurt1", "Hurt2", SubResource( 14 ), "Idle", "Hurt2", SubResource( 15 ), "Hurt2", "Land", SubResource( 18 ), "Land", "Idle", SubResource( 19 ), "Hurt1", "Hurt3", SubResource( 21 ), "Hurt2", "Hurt3", SubResource( 22 ), "Hurt3", "Land", SubResource( 23 ), "Hurt3", "Hurt2", SubResource( 24 ) ]
 start_node = "Idle"
+graph_offset = Vector2( 211, 153 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=12]
 
@@ -106,7 +156,7 @@ __meta__ = {
 texture = ExtResource( 1 )
 vframes = 16
 hframes = 18
-frame = 57
+frame = 59
 
 [node name="ShadowSprite" type="Sprite" parent="."]
 scale = Vector2( 2, 1 )
@@ -132,6 +182,7 @@ anims/Hurt1 = SubResource( 3 )
 anims/Hurt2 = SubResource( 4 )
 anims/Hurt3 = SubResource( 5 )
 anims/Idle = SubResource( 6 )
+anims/Land = SubResource( 16 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource( 11 )
@@ -139,6 +190,8 @@ anim_player = NodePath("../AnimationPlayer")
 parameters/playback = SubResource( 12 )
 
 [node name="Hurtlag" type="Timer" parent="."]
+
+[node name="Tween" type="Tween" parent="."]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
 [connection signal="timeout" from="Hurtlag" to="." method="_on_Hurtlag_timeout"]
 

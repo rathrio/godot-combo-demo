@@ -7,6 +7,7 @@ const Move = preload(\"../Util/Move.gd\")
 
 var moves: Dictionary
 
+# Attack combos
 func _init():
 	moves =  {
 		\"punch\": Move.new(\"Punch1\"),

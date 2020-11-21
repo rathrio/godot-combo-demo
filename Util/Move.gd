@@ -11,6 +11,7 @@ var terminal: bool
 # move it when executing this move.
 var velocity: Vector2
 
+var launch: bool
 
 func _init(id: String, terminal = false, velocity = Vector2.ZERO, launch = false):
 	self.id = id

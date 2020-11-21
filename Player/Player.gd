@@ -108,7 +108,8 @@ func _on_Hitbox_area_entered(_area):
 
 func _on_Hitlag_timeout():
 	set_physics_process(true)
-	animation_player.play()
+	if not animation_player.current_animation == "":
+		animation_player.play()
 
 
 func block():
@@ -140,22 +141,12 @@ func _on_CombatBuffer_action_just_released(action):
 				unblock()
 
 
-func _on_CombatBuffer_movement(move):
-	velocity = Vector2.ZERO
-
+func _on_CombatBuffer_movement(move: Move):
 	if dashing():
-		# TODO: model this in Move.gd
-		match move.id:
-			"Punch1":
-				animation_state.travel("Uppercut1")
-				apply_velocity_factor(Vector2(150, 0))
-			"Kick1":
-				animation_state.travel("Kick2")
-				apply_velocity_factor(Vector2(150, 0))
-	else:
-		animation_state.travel(move.id)
-		apply_velocity_factor(move.velocity)
-
+		return
+		
+	velocity = Vector2.ZERO
+	execute_move(move)
 	state = State.ATTACK
 
 
@@ -165,26 +156,43 @@ func _on_CombatBuffer_pause():
 	# TODO some visual combo pause hint
 
 
-func _on_MovementBuffer_movement(move):
-	if blocking():
-		match move.id:
-			"DashRight":
-				if direction == Vector2.RIGHT:
-					state = State.DASH
-					animation_state.travel("Dash")
-					apply_velocity_factor(move.velocity)
-				else:
-					state = State.DASH_BACK
-					animation_state.travel("DashBack")
-					apply_velocity_factor(move.velocity * -0.7)
-			"DashLeft":
-				if direction == Vector2.LEFT:
-					state = State.DASH
-					animation_state.travel("Dash")
-					apply_velocity_factor(move.velocity)
-				else:
-					state = State.DASH_BACK
-					animation_state.travel("DashBack")
-					apply_velocity_factor(move.velocity * -0.7)
+func _on_MovementBuffer_movement(move: Move):
+	if not blocking():
+		return
+		
+	match move.id:
+		"DashRight":
+			if direction == Vector2.RIGHT:
+				state = State.DASH
+				animation_state.travel("Dash")
+				apply_velocity_factor(move.velocity)
+			else:
+				state = State.DASH_BACK
+				animation_state.travel("DashBack")
+				apply_velocity_factor(move.velocity * -0.7)
+		"DashLeft":
+			if direction == Vector2.LEFT:
+				state = State.DASH
+				animation_state.travel("Dash")
+				apply_velocity_factor(move.velocity)
+			else:
+				state = State.DASH_BACK
+				animation_state.travel("DashBack")
+				apply_velocity_factor(move.velocity * -0.7)
 
 
+func _on_DashBuffer_movement(move: Move):
+	if not dashing():
+		return
+		
+	execute_move(move)
+		
+	# Consider keeping dash state to allow special dash combos
+	state = State.ATTACK
+	
+
+# Execute move as is, i.e., the id can be used as animation and velocity does
+# not need to be processed and can be applied directly.
+func execute_move(move: Move):
+	animation_state.travel(move.id)
+	apply_velocity_factor(move.velocity)
