@@ -17,7 +17,7 @@ func _init():
 		\"kick\": Move.new(\"Kick1\"),
 
 		\"punch punch punch pause punch\": Move.new(\"Uppercut1\", false, Vector2(100, 0)),
-		\"punch punch punch pause punch pause punch\": Move.new(\"SuperPunch\", true, Vector2(250, 0)),
+		\"punch punch punch pause punch pause punch\": Move.new(\"SuperPunch\", true, Vector2(350, 0)),
 	}
 "
 

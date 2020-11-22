@@ -1,8 +1,10 @@
 extends KinematicBody2D
 
-const ACCELERATION = 1000
-const MAX_SPEED = 200
-const FRICTION = 600
+const ACCELERATION := 1000
+const MAX_SPEED := 200
+const FRICTION := 600
+
+const MAX_OFFSET_DIFF := 30
 
 enum State {
 	MOVE,
@@ -19,7 +21,7 @@ onready var animation_state: AnimationNodeStateMachinePlayback = animation_tree.
 onready var sprite: Sprite = $Sprite
 onready var effect_sprite: Sprite = $EffectSprite
 onready var hitbox: Position2D = $HitboxPivot
-onready var hitbox_area: Area2D = hitbox.get_node("Hitbox")
+onready var hitbox_area: Hitbox = hitbox.get_node("Hitbox")
 onready var hitlag: Timer = $Hitlag
 
 export(float) var hitlag_time = 0.1
@@ -100,7 +102,22 @@ func move():
 	velocity = move_and_slide(velocity)
 
 
-func _on_Hitbox_area_entered(_area):
+func offsets_align(area: Area2D) -> bool:
+	if not area.has_method("offset"):
+		return true
+
+	var offset_diff = abs(area.offset().y - sprite.offset.y)
+	print(offset_diff)
+	return offset_diff < MAX_OFFSET_DIFF
+
+
+func _on_Hitbox_area_entered(area: Area2D):
+	if not offsets_align(area):
+		return
+
+	if area.has_method("take_hit"):
+		area.take_hit(hitbox_area)
+		
 	hitlag.start(hitlag_time)
 	set_physics_process(false)
 	animation_player.stop(false)
@@ -121,11 +138,13 @@ func unblock():
 	state = State.MOVE
 	animation_state.travel("Breach")
 
+
 func apply_velocity_factor(velocity_factor: Vector2):
 	if velocity_factor != Vector2.ZERO:
 		velocity = direction
 		velocity.x *= velocity_factor.x
 		velocity.y *= velocity_factor.y
+
 
 func _on_CombatBuffer_action_just_pressed(action):
 	match action:
@@ -144,7 +163,7 @@ func _on_CombatBuffer_action_just_released(action):
 func _on_CombatBuffer_movement(move: Move):
 	if dashing():
 		return
-		
+
 	velocity = Vector2.ZERO
 	execute_move(move)
 	state = State.ATTACK
@@ -159,7 +178,7 @@ func _on_CombatBuffer_pause():
 func _on_MovementBuffer_movement(move: Move):
 	if not blocking():
 		return
-		
+
 	match move.id:
 		"DashRight":
 			if direction == Vector2.RIGHT:
@@ -184,12 +203,12 @@ func _on_MovementBuffer_movement(move: Move):
 func _on_DashBuffer_movement(move: Move):
 	if not dashing():
 		return
-		
+
 	execute_move(move)
-		
+
 	# Consider keeping dash state to allow special dash combos
 	state = State.ATTACK
-	
+
 
 # Execute move as is, i.e., the id can be used as animation and velocity does
 # not need to be processed and can be applied directly.

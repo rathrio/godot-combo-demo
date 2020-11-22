@@ -103,15 +103,14 @@ func reorient_sprite():
 	sprite.flip_h = direction != Vector2.RIGHT
 
 
-func _on_Hurtbox_area_entered(area):
-	var knockback_vector = area.get("knockback")
-	if not knockback_vector == null:
-		knockback = knockback_vector * KNOCKBACK_STRENGTH
-		# Face player when getting attacked
-		direction = knockback_vector.normalized() * -1
-		reorient_sprite()
+func _on_Hurtbox_take_hit(hitbox: Hitbox):
+	var knockback_vector = hitbox.knockback
+	knockback = knockback_vector * KNOCKBACK_STRENGTH
+	# Face player when getting attacked
+	direction = knockback_vector.normalized() * -1
+	reorient_sprite()
 
-	var move = area.get("move")
+	var move = hitbox.move
 	if not move == null and move.launch:
 		launch()
 	else:

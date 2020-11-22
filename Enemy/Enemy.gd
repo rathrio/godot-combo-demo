@@ -19,17 +19,6 @@ func _physics_process(delta):
 	knockback = move_and_slide(knockback)
 
 
-func _on_Hurtbox_area_entered(area: Area2D):
-	var knockback_vector = area.get("knockback")
-	if not knockback_vector == null:
-		knockback = knockback_vector * KNOCKBACK_STRENGTH
-
-	body.color = Color.red
-	set_physics_process(false)
-	hurtlag.start(hurtlag_time)
-	health.decrease(5)
-
-
 func _on_Hurtlag_timeout():
 	set_physics_process(true)
 	body.color = Color.white
@@ -37,3 +26,13 @@ func _on_Hurtlag_timeout():
 
 func _on_Health_depleted():
 	queue_free()
+
+
+func _on_Hurtbox_take_hit(hitbox: Hitbox):
+	var knockback_vector = hitbox.knockback
+	knockback = knockback_vector * KNOCKBACK_STRENGTH
+
+	body.color = Color.red
+	set_physics_process(false)
+	hurtlag.start(hurtlag_time)
+	health.decrease(5)

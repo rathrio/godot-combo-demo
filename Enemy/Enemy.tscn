@@ -63,7 +63,7 @@ __meta__ = {
 
 [node name="Health" parent="." instance=ExtResource( 4 )]
 max_health = 50
-[connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
+[connection signal="take_hit" from="Hurtbox" to="." method="_on_Hurtbox_take_hit"]
 [connection signal="timeout" from="Hurtlag" to="." method="_on_Hurtlag_timeout"]
 [connection signal="changed" from="Health" to="HealthUI" method="_on_Health_changed"]
 [connection signal="depleted" from="Health" to="." method="_on_Health_depleted"]

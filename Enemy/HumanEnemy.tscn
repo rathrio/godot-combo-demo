@@ -11,7 +11,7 @@ extents = Vector2( 1.17797, 2.37442 )
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 6.85522, 3.90878 )
 
-[sub_resource type="Animation" id=25]
+[sub_resource type="Animation" id=3]
 resource_name = "Fall"
 length = 0.4
 tracks/0/type = "value"
@@ -27,8 +27,7 @@ tracks/0/keys = {
 "values": [ 6, 51 ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "Hurt1"
+[sub_resource type="Animation" id=4]
 length = 0.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -43,8 +42,7 @@ tracks/0/keys = {
 "values": [ 57 ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "Hurt2"
+[sub_resource type="Animation" id=5]
 length = 0.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -59,8 +57,7 @@ tracks/0/keys = {
 "values": [ 58 ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "Hurt3"
+[sub_resource type="Animation" id=6]
 length = 0.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -75,7 +72,7 @@ tracks/0/keys = {
 "values": [ 59 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=7]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -89,8 +86,7 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="Animation" id=7]
-resource_name = "Land"
+[sub_resource type="Animation" id=8]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -105,72 +101,74 @@ tracks/0/keys = {
 "values": [ 16 ]
 }
 
-[sub_resource type="AnimationNodeAnimation" id=26]
+[sub_resource type="AnimationNodeAnimation" id=9]
 animation = "Fall"
 
-[sub_resource type="AnimationNodeAnimation" id=8]
+[sub_resource type="AnimationNodeAnimation" id=10]
 animation = "Hurt1"
 
-[sub_resource type="AnimationNodeAnimation" id=9]
+[sub_resource type="AnimationNodeAnimation" id=11]
 animation = "Hurt2"
 
-[sub_resource type="AnimationNodeAnimation" id=10]
+[sub_resource type="AnimationNodeAnimation" id=12]
 animation = "Hurt3"
 
-[sub_resource type="AnimationNodeAnimation" id=11]
+[sub_resource type="AnimationNodeAnimation" id=13]
 animation = "Idle"
 
-[sub_resource type="AnimationNodeAnimation" id=12]
+[sub_resource type="AnimationNodeAnimation" id=14]
 animation = "Land"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=13]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=14]
-switch_mode = 2
-auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=15]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=16]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=18]
 switch_mode = 2
 auto_advance = true
 
+[sub_resource type="AnimationNodeStateMachineTransition" id=17]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=18]
+
 [sub_resource type="AnimationNodeStateMachineTransition" id=19]
+switch_mode = 2
+auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=20]
 
+[sub_resource type="AnimationNodeStateMachineTransition" id=21]
+
 [sub_resource type="AnimationNodeStateMachineTransition" id=22]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=23]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=24]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=25]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=26]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=27]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=28]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=29]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=30]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=31]
-
-[sub_resource type="AnimationNodeStateMachine" id=23]
-states/Fall/node = SubResource( 26 )
+[sub_resource type="AnimationNodeStateMachine" id=28]
+states/Fall/node = SubResource( 9 )
 states/Fall/position = Vector2( 749, 432 )
-states/Hurt1/node = SubResource( 8 )
+states/Hurt1/node = SubResource( 10 )
 states/Hurt1/position = Vector2( 763.5, 189.5 )
-states/Hurt2/node = SubResource( 9 )
+states/Hurt2/node = SubResource( 11 )
 states/Hurt2/position = Vector2( 758, 283 )
-states/Hurt3/node = SubResource( 10 )
+states/Hurt3/node = SubResource( 12 )
 states/Hurt3/position = Vector2( 907, 326 )
-states/Idle/node = SubResource( 11 )
+states/Idle/node = SubResource( 13 )
 states/Idle/position = Vector2( 562, 253 )
-states/Land/node = SubResource( 12 )
+states/Land/node = SubResource( 14 )
 states/Land/position = Vector2( 627, 365 )
-transitions = [ "Idle", "Hurt1", SubResource( 13 ), "Hurt1", "Idle", SubResource( 14 ), "Hurt1", "Hurt2", SubResource( 15 ), "Idle", "Hurt2", SubResource( 16 ), "Land", "Idle", SubResource( 18 ), "Hurt1", "Hurt3", SubResource( 19 ), "Hurt2", "Hurt3", SubResource( 20 ), "Hurt3", "Hurt2", SubResource( 22 ), "Fall", "Land", SubResource( 27 ), "Hurt2", "Fall", SubResource( 28 ), "Hurt3", "Fall", SubResource( 29 ), "Fall", "Hurt2", SubResource( 30 ), "Fall", "Hurt3", SubResource( 31 ) ]
+transitions = [ "Idle", "Hurt1", SubResource( 15 ), "Hurt1", "Idle", SubResource( 16 ), "Hurt1", "Hurt2", SubResource( 17 ), "Idle", "Hurt2", SubResource( 18 ), "Land", "Idle", SubResource( 19 ), "Hurt1", "Hurt3", SubResource( 20 ), "Hurt2", "Hurt3", SubResource( 21 ), "Hurt3", "Hurt2", SubResource( 22 ), "Fall", "Land", SubResource( 23 ), "Hurt2", "Fall", SubResource( 24 ), "Hurt3", "Fall", SubResource( 25 ), "Fall", "Hurt2", SubResource( 26 ), "Fall", "Hurt3", SubResource( 27 ) ]
 start_node = "Idle"
 graph_offset = Vector2( 178, 177 )
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=24]
+[sub_resource type="AnimationNodeStateMachinePlayback" id=29]
 
 [node name="HumanEnemy" type="KinematicBody2D"]
 collision_layer = 2147483664
@@ -183,7 +181,7 @@ __meta__ = {
 texture = ExtResource( 1 )
 vframes = 16
 hframes = 18
-frame = 16
+frame = 58
 
 [node name="ShadowSprite" type="Sprite" parent="."]
 scale = Vector2( 2, 1 )
@@ -199,28 +197,29 @@ shape = SubResource( 1 )
 position = Vector2( 0, 18 )
 collision_layer = 8
 collision_mask = 0
+sprite_path = NodePath("../Sprite")
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 position = Vector2( 0, -0.630707 )
 shape = SubResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Fall = SubResource( 25 )
-anims/Hurt1 = SubResource( 3 )
-anims/Hurt2 = SubResource( 4 )
-anims/Hurt3 = SubResource( 5 )
-anims/Idle = SubResource( 6 )
-anims/Land = SubResource( 7 )
+anims/Fall = SubResource( 3 )
+anims/Hurt1 = SubResource( 4 )
+anims/Hurt2 = SubResource( 5 )
+anims/Hurt3 = SubResource( 6 )
+anims/Idle = SubResource( 7 )
+anims/Land = SubResource( 8 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 23 )
+tree_root = SubResource( 28 )
 anim_player = NodePath("../AnimationPlayer")
-parameters/playback = SubResource( 24 )
+parameters/playback = SubResource( 29 )
 
 [node name="Hurtlag" type="Timer" parent="."]
 
 [node name="Tween" type="Tween" parent="."]
-[connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
+[connection signal="take_hit" from="Hurtbox" to="." method="_on_Hurtbox_take_hit"]
 [connection signal="timeout" from="Hurtlag" to="." method="_on_Hurtlag_timeout"]
 
 [editable path="Hurtbox"]
