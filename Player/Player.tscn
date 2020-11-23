@@ -8,7 +8,7 @@
 [ext_resource path="res://InputBuffer.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Player/Combat.tres" type="Resource" id=7]
 [ext_resource path="res://Player/Movement.tres" type="Resource" id=8]
-[ext_resource path="res://Player/Launchable.gd" type="Script" id=9]
+[ext_resource path="res://Launchable.tscn" type="PackedScene" id=9]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Block"
@@ -115,10 +115,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 16, 51 ]
+"values": [ 51 ]
 }
 
 [sub_resource type="Animation" id=8]
@@ -600,9 +600,9 @@ auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=61]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=66]
+[sub_resource type="AnimationNodeStateMachineTransition" id=62]
 
-[sub_resource type="AnimationNodeStateMachine" id=62]
+[sub_resource type="AnimationNodeStateMachine" id=63]
 states/Block/node = SubResource( 18 )
 states/Block/position = Vector2( 104.109, -115.817 )
 states/Breach/node = SubResource( 19 )
@@ -629,16 +629,16 @@ states/SuperPunch/node = SubResource( 29 )
 states/SuperPunch/position = Vector2( 716.109, -196.817 )
 states/Uppercut1/node = SubResource( 30 )
 states/Uppercut1/position = Vector2( 446.5, -306.278 )
-transitions = [ "Punch1", "Punch2", SubResource( 31 ), "Punch1", "Breach", SubResource( 32 ), "Punch2", "Breach", SubResource( 33 ), "Uppercut1", "Breach", SubResource( 34 ), "Breach", "Move", SubResource( 35 ), "Move", "Breach", SubResource( 36 ), "Move", "Punch1", SubResource( 37 ), "Move", "Uppercut1", SubResource( 38 ), "Breach", "Block", SubResource( 39 ), "Move", "Block", SubResource( 40 ), "Block", "Move", SubResource( 41 ), "Block", "Breach", SubResource( 42 ), "Block", "Dash", SubResource( 43 ), "Dash", "Breach", SubResource( 44 ), "Block", "DashBack", SubResource( 45 ), "DashBack", "Breach", SubResource( 46 ), "Dash", "Uppercut1", SubResource( 47 ), "Punch2", "Punch3", SubResource( 48 ), "Punch3", "Breach", SubResource( 49 ), "SuperPunch", "Breach", SubResource( 50 ), "Uppercut1", "SuperPunch", SubResource( 51 ), "Punch3", "Uppercut1", SubResource( 52 ), "Uppercut1", "Punch2", SubResource( 53 ), "Breach", "Jump", SubResource( 54 ), "Move", "Jump", SubResource( 55 ), "Block", "Jump", SubResource( 56 ), "Dash", "Jump", SubResource( 57 ), "DashBack", "Jump", SubResource( 58 ), "Land", "Breach", SubResource( 59 ), "Fall", "Land", SubResource( 60 ), "Jump", "Fall", SubResource( 61 ), "Jump", "Land", SubResource( 66 ) ]
+transitions = [ "Punch1", "Punch2", SubResource( 31 ), "Punch1", "Breach", SubResource( 32 ), "Punch2", "Breach", SubResource( 33 ), "Uppercut1", "Breach", SubResource( 34 ), "Breach", "Move", SubResource( 35 ), "Move", "Breach", SubResource( 36 ), "Move", "Punch1", SubResource( 37 ), "Move", "Uppercut1", SubResource( 38 ), "Breach", "Block", SubResource( 39 ), "Move", "Block", SubResource( 40 ), "Block", "Move", SubResource( 41 ), "Block", "Breach", SubResource( 42 ), "Block", "Dash", SubResource( 43 ), "Dash", "Breach", SubResource( 44 ), "Block", "DashBack", SubResource( 45 ), "DashBack", "Breach", SubResource( 46 ), "Dash", "Uppercut1", SubResource( 47 ), "Punch2", "Punch3", SubResource( 48 ), "Punch3", "Breach", SubResource( 49 ), "SuperPunch", "Breach", SubResource( 50 ), "Uppercut1", "SuperPunch", SubResource( 51 ), "Punch3", "Uppercut1", SubResource( 52 ), "Uppercut1", "Punch2", SubResource( 53 ), "Breach", "Jump", SubResource( 54 ), "Move", "Jump", SubResource( 55 ), "Block", "Jump", SubResource( 56 ), "Dash", "Jump", SubResource( 57 ), "DashBack", "Jump", SubResource( 58 ), "Land", "Breach", SubResource( 59 ), "Fall", "Land", SubResource( 60 ), "Jump", "Fall", SubResource( 61 ), "Jump", "Land", SubResource( 62 ) ]
 start_node = "Breach"
 graph_offset = Vector2( -347.891, -615.817 )
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=63]
+[sub_resource type="AnimationNodeStateMachinePlayback" id=64]
 
-[sub_resource type="RectangleShape2D" id=64]
+[sub_resource type="RectangleShape2D" id=65]
 extents = Vector2( 1.28999, 2.96128 )
 
-[sub_resource type="CapsuleShape2D" id=65]
+[sub_resource type="CapsuleShape2D" id=66]
 radius = 4.21867
 height = 12.379
 
@@ -652,7 +652,7 @@ __meta__ = {
 texture = ExtResource( 1 )
 vframes = 16
 hframes = 18
-frame = 51
+frame = 16
 
 [node name="ShadowSprite" type="Sprite" parent="."]
 scale = Vector2( 2, 1 )
@@ -686,14 +686,14 @@ anims/Uppercut1 = SubResource( 16 )
 anims/Uppercut2 = SubResource( 17 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 62 )
+tree_root = SubResource( 63 )
 anim_player = NodePath("../AnimationPlayer")
-parameters/playback = SubResource( 63 )
+parameters/playback = SubResource( 64 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0.0898743, 17.5861 )
 rotation = 1.5708
-shape = SubResource( 64 )
+shape = SubResource( 65 )
 
 [node name="HitboxPivot" type="Position2D" parent="."]
 position = Vector2( 0, 18 )
@@ -706,7 +706,7 @@ sprite_path = NodePath("../../Sprite")
 
 [node name="CollisionShape2D" parent="HitboxPivot/Hitbox" index="0"]
 rotation = 1.5708
-shape = SubResource( 65 )
+shape = SubResource( 66 )
 
 [node name="CombatBuffer" parent="." instance=ExtResource( 6 )]
 valid_inputs = PoolStringArray( "punch", "kick", "block", "jump" )
@@ -723,10 +723,8 @@ combos = ExtResource( 5 )
 [node name="Hitlag" type="Timer" parent="."]
 one_shot = true
 
-[node name="Tween" type="Tween" parent="."]
-
-[node name="Launchable" type="Node" parent="."]
-script = ExtResource( 9 )
+[node name="Jump" parent="." instance=ExtResource( 9 )]
+sprite_path = NodePath("../Sprite")
 [connection signal="area_entered" from="HitboxPivot/Hitbox" to="." method="_on_Hitbox_area_entered"]
 [connection signal="action_just_pressed" from="CombatBuffer" to="." method="_on_CombatBuffer_action_just_pressed"]
 [connection signal="action_just_released" from="CombatBuffer" to="." method="_on_CombatBuffer_action_just_released"]
@@ -735,5 +733,7 @@ script = ExtResource( 9 )
 [connection signal="movement" from="MovementBuffer" to="." method="_on_MovementBuffer_movement"]
 [connection signal="movement" from="DashBuffer" to="." method="_on_DashBuffer_movement"]
 [connection signal="timeout" from="Hitlag" to="." method="_on_Hitlag_timeout"]
+[connection signal="fall" from="Jump" to="." method="_on_Jump_fall"]
+[connection signal="launch" from="Jump" to="." method="_on_Jump_launch"]
 
 [editable path="HitboxPivot/Hitbox"]

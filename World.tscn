@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Enemy/Enemy.tscn" type="PackedScene" id=2]
@@ -6,9 +6,7 @@
 [ext_resource path="res://Fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://ComboUI.gd" type="Script" id=5]
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=1]
-
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=1]
 size = 8
 font_data = ExtResource( 4 )
 
@@ -28,9 +26,6 @@ __meta__ = {
 position = Vector2( 215.533, 97.9586 )
 collision_layer = 2
 
-[node name="AnimationTree" parent="YSort/Player" index="4"]
-parameters/playback = SubResource( 1 )
-
 [node name="HumanEnemy" parent="YSort" instance=ExtResource( 3 )]
 position = Vector2( 132.066, 95.5489 )
 
@@ -45,6 +40,7 @@ collision_mask = 0
 polygon = PoolVector2Array( -0.501396, -1.02958, -0.0809479, 20.8337, 319.46, 19.5724, 318.619, 178.502, 0.3395, 179.343, 0.3395, 20.8337, -4.70588, 186.49, 335.857, 183.968, 324.926, -0.188679 )
 
 [node name="ComboUI" type="Panel" parent="."]
+visible = false
 margin_right = 320.0
 margin_bottom = 22.0
 script = ExtResource( 5 )
@@ -59,7 +55,7 @@ margin_left = 4.71938
 margin_top = -7.96968
 margin_right = 219.719
 margin_bottom = 12.0303
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 1 )
 text = "Input"
 autowrap = true
 __meta__ = {
@@ -75,15 +71,9 @@ margin_left = -94.551
 margin_top = -6.83032
 margin_right = -7.55103
 margin_bottom = 13.1697
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 1 )
 text = "Move"
 align = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="buffer_changed" from="YSort/Player/CombatBuffer" to="ComboUI" method="_on_Buffer_buffer_changed"]
-[connection signal="movement" from="YSort/Player/CombatBuffer" to="ComboUI" method="_on_Buffer_movement"]
-[connection signal="buffer_changed" from="YSort/Player/MovementBuffer" to="ComboUI" method="_on_Buffer_buffer_changed"]
-[connection signal="movement" from="YSort/Player/MovementBuffer" to="ComboUI" method="_on_Buffer_movement"]
-
-[editable path="YSort/Player"]

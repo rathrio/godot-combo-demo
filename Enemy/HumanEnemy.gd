@@ -7,15 +7,12 @@ onready var animation_tree: AnimationTree = $AnimationTree
 onready var animation_state: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/playback")
 onready var hurtlag = $Hurtlag
 onready var sprite: Sprite = $Sprite
-onready var tween: Tween = $Tween
+onready var launch: Launchable = $Launch
 
 var knockback := Vector2.ZERO
 
 const KNOCKBACK_STRENGTH := 100
 const KNOCKBACK_FRICTION := 300
-const LAUNCH_APEX := Vector2(0, -40)
-const LAUNCH_DURATION := 0.5
-const FALL_DURATION := 0.4
 
 enum State {
 	MOVE,
@@ -37,37 +34,15 @@ func _ready():
 	hurtlag.one_shot = true
 
 
-func at_launch_apex() -> bool:
-	return sprite.offset == LAUNCH_APEX
-
 # When launched by launch attack
 func launch():
 	state = State.LAUNCHED
 	animation_state.travel("Hurt2")
-	tween.interpolate_property(
-		sprite,
-		"offset",
-		sprite.offset,
-		LAUNCH_APEX,
-		LAUNCH_DURATION,
-		Tween.TRANS_EXPO,
-		Tween.EASE_OUT
-	)
-	tween.start()
 
 
 func fall():
 	animation_state.travel("Fall")
-	tween.interpolate_property(
-		sprite,
-		"offset",
-		sprite.offset,
-		Vector2.ZERO,
-		FALL_DURATION,
-		Tween.TRANS_CIRC,
-		Tween.EASE_IN
-	)
-	tween.start()
+	
 
 func land():
 	state = State.MOVE
@@ -96,9 +71,6 @@ func _physics_process(delta):
 	knockback = knockback.move_toward(Vector2.ZERO, knockback_friction * delta)
 	knockback = move_and_slide(knockback)
 
-	if at_launch_apex():
-		fall()
-
 
 func reorient_sprite():
 	sprite.flip_h = direction != Vector2.RIGHT
@@ -113,7 +85,7 @@ func _on_Hurtbox_take_hit(hitbox: Hitbox):
 
 	var move = hitbox.move
 	if not move == null and move.launch:
-		launch()
+		launch.launch()
 	else:
 		if launched():
 			animation_state.travel("Hurt3")
@@ -123,11 +95,19 @@ func _on_Hurtbox_take_hit(hitbox: Hitbox):
 	hurtlag.start(hurtlag_time)
 	set_physics_process(false)
 	animation_player.stop(false)
-	tween.stop(sprite, "offset")
+	launch.pause()
 
 
 func _on_Hurtlag_timeout():
 	set_physics_process(true)
 	if not animation_player.current_animation == "":
 		animation_player.play()
-	tween.resume(sprite, "offset")
+	launch.resume()
+
+
+func _on_Launch_launch():
+	launch()
+
+
+func _on_Launch_fall():
+	fall()

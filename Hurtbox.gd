@@ -6,7 +6,7 @@ signal take_hit(hitbox)
 
 export(NodePath) var sprite_path
 
-onready var sprite: Sprite = get_node(sprite_path)
+onready var sprite: Sprite = get_node_or_null(sprite_path)
 
 
 func offset() -> Vector2:

@@ -5,9 +5,6 @@ const MAX_SPEED := 200
 const FRICTION := 600
 
 const MAX_OFFSET_DIFF := 30
-const JUMP_APEX := Vector2(0, -40)
-const JUMP_DURATION := 0.4
-const FALL_DURATION := 0.3
 
 enum State {
 	MOVE,
@@ -28,7 +25,7 @@ onready var effect_sprite: Sprite = $EffectSprite
 onready var hitbox: Position2D = $HitboxPivot
 onready var hitbox_area: Hitbox = hitbox.get_node("Hitbox")
 onready var hitlag: Timer = $Hitlag
-onready var tween: Tween = $Tween
+onready var jump: Launchable = $Jump
 
 export(float) var hitlag_time = 0.1
 
@@ -47,9 +44,6 @@ func _physics_process(delta):
 	if state == State.FALL:
 		if grounded():
 			land()
-	
-	if at_launch_apex():
-		fall()
 		
 	var friction = FRICTION
 	if not grounded():
@@ -63,10 +57,6 @@ func _physics_process(delta):
 		unblock()
 
 	handle_movement(delta)
-
-
-func at_launch_apex() -> bool:
-	return sprite.offset == JUMP_APEX
 
 
 func get_input() -> Vector2:
@@ -156,31 +146,11 @@ func _on_Hitlag_timeout():
 func jump():
 	state = State.LAUNCH
 	animation_state.travel("Jump")
-	tween.interpolate_property(
-		sprite,
-		"offset",
-		sprite.offset,
-		JUMP_APEX,
-		JUMP_DURATION,
-		Tween.TRANS_EXPO,
-		Tween.EASE_OUT
-	)
-	tween.start()
 
 
 func fall():
 	state = State.FALL
 	animation_state.travel("Fall")
-	tween.interpolate_property(
-		sprite,
-		"offset",
-		sprite.offset,
-		Vector2.ZERO,
-		FALL_DURATION,
-		Tween.TRANS_CIRC,
-		Tween.EASE_IN
-	)
-	tween.start()
 
 
 func land():
@@ -216,7 +186,7 @@ func _on_CombatBuffer_action_just_pressed(action):
 				
 		"jump":
 			if grounded():
-				jump()
+				jump.launch()
 
 
 func _on_CombatBuffer_action_just_released(action):
@@ -287,3 +257,11 @@ func execute_move(move: Move):
 	hitbox_area.move = move
 	animation_state.travel(move.id)
 	apply_velocity_factor(move.velocity)
+
+
+func _on_Jump_fall():
+	fall()
+
+
+func _on_Jump_launch():
+	jump()

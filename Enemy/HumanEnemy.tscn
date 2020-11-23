@@ -1,9 +1,10 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://Enemy/Char_3_No_Armor.png" type="Texture" id=1]
 [ext_resource path="res://Hurtbox.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Enemy/HumanEnemy.gd" type="Script" id=3]
 [ext_resource path="res://Art/MediumShadow.png" type="Texture" id=4]
+[ext_resource path="res://Launchable.tscn" type="PackedScene" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 1.17797, 2.37442 )
@@ -218,8 +219,13 @@ parameters/playback = SubResource( 29 )
 
 [node name="Hurtlag" type="Timer" parent="."]
 
-[node name="Tween" type="Tween" parent="."]
+[node name="Launch" parent="." instance=ExtResource( 5 )]
+sprite_path = NodePath("../Sprite")
+launch_duration = 0.5
+fall_duration = 0.4
 [connection signal="take_hit" from="Hurtbox" to="." method="_on_Hurtbox_take_hit"]
 [connection signal="timeout" from="Hurtlag" to="." method="_on_Hurtlag_timeout"]
+[connection signal="fall" from="Launch" to="." method="_on_Launch_fall"]
+[connection signal="launch" from="Launch" to="." method="_on_Launch_launch"]
 
 [editable path="Hurtbox"]

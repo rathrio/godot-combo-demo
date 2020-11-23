@@ -24,6 +24,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Hurtbox.gd"
 }, {
+"base": "Node",
+"class": "Launchable",
+"language": "GDScript",
+"path": "res://Launchable.gd"
+}, {
 "base": "Resource",
 "class": "Move",
 "language": "GDScript",
@@ -33,6 +38,7 @@ _global_script_class_icons={
 "Health": "",
 "Hitbox": "",
 "Hurtbox": "",
+"Launchable": "",
 "Move": ""
 }
 
