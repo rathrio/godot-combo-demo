@@ -172,6 +172,7 @@ graph_offset = Vector2( 168, 20 )
 [sub_resource type="AnimationNodeStateMachinePlayback" id=29]
 
 [node name="HumanEnemy" type="KinematicBody2D"]
+self_modulate = Color( 1, 0.576471, 0.576471, 1 )
 collision_layer = 2147483664
 script = ExtResource( 3 )
 __meta__ = {

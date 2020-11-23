@@ -1,6 +1,8 @@
 extends KinematicBody2D
 
 export(float) var hurtlag_time = 0.1
+export(Color) var hurt_color = Color(1, 0.2, 0.2, 1)
+export(Color) var default_color = Color(1, 1, 1, 1)
 
 onready var animation_player: AnimationPlayer = $AnimationPlayer
 onready var animation_tree: AnimationTree = $AnimationTree
@@ -92,6 +94,7 @@ func _on_Hurtbox_take_hit(hitbox: Hitbox):
 		else:
 			animation_state.travel("Hurt1")
 
+	sprite.self_modulate = hurt_color
 	hurtlag.start(hurtlag_time)
 	set_physics_process(false)
 	animation_player.stop(false)
@@ -99,6 +102,7 @@ func _on_Hurtbox_take_hit(hitbox: Hitbox):
 
 
 func _on_Hurtlag_timeout():
+	sprite.self_modulate = default_color
 	set_physics_process(true)
 	if not animation_player.current_animation == "":
 		animation_player.play()
