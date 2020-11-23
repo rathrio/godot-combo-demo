@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=2]
+[gd_scene load_steps=76 format=2]
 
 [ext_resource path="res://Player/Char_3.png" type="Texture" id=1]
 [ext_resource path="res://Player/Player.gd" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://InputBuffer.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Player/Combat.tres" type="Resource" id=7]
 [ext_resource path="res://Player/Movement.tres" type="Resource" id=8]
+[ext_resource path="res://Player/Launchable.gd" type="Script" id=9]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Block"
@@ -723,6 +724,9 @@ combos = ExtResource( 5 )
 one_shot = true
 
 [node name="Tween" type="Tween" parent="."]
+
+[node name="Launchable" type="Node" parent="."]
+script = ExtResource( 9 )
 [connection signal="area_entered" from="HitboxPivot/Hitbox" to="." method="_on_Hitbox_area_entered"]
 [connection signal="action_just_pressed" from="CombatBuffer" to="." method="_on_CombatBuffer_action_just_pressed"]
 [connection signal="action_just_released" from="CombatBuffer" to="." method="_on_CombatBuffer_action_just_released"]
