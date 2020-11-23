@@ -88,6 +88,9 @@ func dashing() -> bool:
 
 
 func handle_movement(delta: float):
+	if not grounded():
+		return
+		
 	var input_vector = get_input()
 	if input_vector != Vector2.ZERO && breaching():
 		state = State.MOVE
