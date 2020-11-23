@@ -8,6 +8,7 @@ export(NodePath) var sprite_path
 
 onready var sprite: Sprite = get_node(sprite_path)
 
+
 func offset() -> Vector2:
 	if sprite == null:
 		print_debug("Warn: sprite is null")

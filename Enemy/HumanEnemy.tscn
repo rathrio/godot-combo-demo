@@ -166,7 +166,7 @@ states/Land/node = SubResource( 14 )
 states/Land/position = Vector2( 627, 365 )
 transitions = [ "Idle", "Hurt1", SubResource( 15 ), "Hurt1", "Idle", SubResource( 16 ), "Hurt1", "Hurt2", SubResource( 17 ), "Idle", "Hurt2", SubResource( 18 ), "Land", "Idle", SubResource( 19 ), "Hurt1", "Hurt3", SubResource( 20 ), "Hurt2", "Hurt3", SubResource( 21 ), "Hurt3", "Hurt2", SubResource( 22 ), "Fall", "Land", SubResource( 23 ), "Hurt2", "Fall", SubResource( 24 ), "Hurt3", "Fall", SubResource( 25 ), "Fall", "Hurt2", SubResource( 26 ), "Fall", "Hurt3", SubResource( 27 ) ]
 start_node = "Idle"
-graph_offset = Vector2( 178, 177 )
+graph_offset = Vector2( 168, 20 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=29]
 
@@ -181,7 +181,7 @@ __meta__ = {
 texture = ExtResource( 1 )
 vframes = 16
 hframes = 18
-frame = 58
+frame = 16
 
 [node name="ShadowSprite" type="Sprite" parent="."]
 scale = Vector2( 2, 1 )

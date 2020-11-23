@@ -15,6 +15,7 @@ const KNOCKBACK_STRENGTH := 100
 const KNOCKBACK_FRICTION := 300
 const LAUNCH_APEX := Vector2(0, -40)
 const LAUNCH_DURATION := 0.5
+const FALL_DURATION := 0.4
 
 enum State {
 	MOVE,
@@ -37,7 +38,7 @@ func _ready():
 
 
 func at_launch_apex() -> bool:
-	return $Sprite.offset == LAUNCH_APEX
+	return sprite.offset == LAUNCH_APEX
 
 # When launched by launch attack
 func launch():
@@ -62,7 +63,7 @@ func fall():
 		"offset",
 		sprite.offset,
 		Vector2.ZERO,
-		LAUNCH_DURATION,
+		FALL_DURATION,
 		Tween.TRANS_CIRC,
 		Tween.EASE_IN
 	)

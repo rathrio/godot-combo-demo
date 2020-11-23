@@ -5,13 +5,18 @@ const MAX_SPEED := 200
 const FRICTION := 600
 
 const MAX_OFFSET_DIFF := 30
+const JUMP_APEX := Vector2(0, -40)
+const JUMP_DURATION := 0.4
+const FALL_DURATION := 0.3
 
 enum State {
 	MOVE,
 	ATTACK,
 	BLOCK,
 	DASH,
-	DASH_BACK
+	DASH_BACK,
+	LAUNCH,
+	FALL
 }
 
 onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -23,6 +28,7 @@ onready var effect_sprite: Sprite = $EffectSprite
 onready var hitbox: Position2D = $HitboxPivot
 onready var hitbox_area: Hitbox = hitbox.get_node("Hitbox")
 onready var hitlag: Timer = $Hitlag
+onready var tween: Tween = $Tween
 
 export(float) var hitlag_time = 0.1
 
@@ -38,8 +44,19 @@ func _ready():
 
 
 func _physics_process(delta):
+	if state == State.FALL:
+		if grounded():
+			land()
+	
+	if at_launch_apex():
+		fall()
+		
+	var friction = FRICTION
+	if not grounded():
+		friction *= 0.3
+		
 	move()
-	velocity = velocity.move_toward(Vector2.ZERO, FRICTION * delta)
+	velocity = velocity.move_toward(Vector2.ZERO, friction * delta)
 
 	# Reset faulty block
 	if blocking() && not Input.is_action_pressed("block"):
@@ -48,12 +65,20 @@ func _physics_process(delta):
 	handle_movement(delta)
 
 
+func at_launch_apex() -> bool:
+	return sprite.offset == JUMP_APEX
+
+
 func get_input() -> Vector2:
 	var input_vector = Vector2.ZERO
 	input_vector.x = Input.get_action_strength("right") - Input.get_action_strength("left")
 	input_vector.y = Input.get_action_strength("down") - Input.get_action_strength("up")
 	input_vector = input_vector.normalized()
 	return input_vector
+
+
+func grounded() -> bool:
+	return sprite.offset == Vector2.ZERO
 
 
 func breaching() -> bool:
@@ -107,7 +132,6 @@ func offsets_align(area: Area2D) -> bool:
 		return true
 
 	var offset_diff = abs(area.offset().y - sprite.offset.y)
-	print(offset_diff)
 	return offset_diff < MAX_OFFSET_DIFF
 
 
@@ -127,9 +151,47 @@ func _on_Hitlag_timeout():
 	set_physics_process(true)
 	if not animation_player.current_animation == "":
 		animation_player.play()
+		
+		
+func jump():
+	state = State.LAUNCH
+	animation_state.travel("Jump")
+	tween.interpolate_property(
+		sprite,
+		"offset",
+		sprite.offset,
+		JUMP_APEX,
+		JUMP_DURATION,
+		Tween.TRANS_EXPO,
+		Tween.EASE_OUT
+	)
+	tween.start()
+
+
+func fall():
+	state = State.FALL
+	animation_state.travel("Fall")
+	tween.interpolate_property(
+		sprite,
+		"offset",
+		sprite.offset,
+		Vector2.ZERO,
+		FALL_DURATION,
+		Tween.TRANS_CIRC,
+		Tween.EASE_IN
+	)
+	tween.start()
+
+
+func land():
+	state = State.MOVE
+	animation_state.travel("Land")
 
 
 func block():
+	if not grounded():
+		return
+		
 	state = State.BLOCK
 	animation_state.travel("Block")
 
@@ -151,6 +213,10 @@ func _on_CombatBuffer_action_just_pressed(action):
 		"block":
 			if not blocking():
 				block()
+				
+		"jump":
+			if grounded():
+				jump()
 
 
 func _on_CombatBuffer_action_just_released(action):
@@ -161,6 +227,9 @@ func _on_CombatBuffer_action_just_released(action):
 
 
 func _on_CombatBuffer_movement(move: Move):
+	if not grounded():
+		return
+		
 	if dashing():
 		return
 

@@ -14,6 +14,7 @@ const KNOCKBACK_FRICTION = 300
 func _ready():
 	body.color = Color.white
 
+
 func _physics_process(delta):
 	knockback = knockback.move_toward(Vector2.ZERO, KNOCKBACK_FRICTION * delta)
 	knockback = move_and_slide(knockback)
