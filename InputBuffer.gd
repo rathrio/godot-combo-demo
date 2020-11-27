@@ -54,6 +54,7 @@ func _input(event: InputEvent):
 					move = get_current_move()
 
 				if not move == null:
+					print(move.id)
 					emit_signal("movement", move)
 					if move.terminal:
 						clear()

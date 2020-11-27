@@ -183,7 +183,7 @@ __meta__ = {
 texture = ExtResource( 1 )
 vframes = 16
 hframes = 18
-frame = 16
+frame = 6
 
 [node name="ShadowSprite" type="Sprite" parent="."]
 scale = Vector2( 2, 1 )

@@ -13,8 +13,9 @@ var velocity: Vector2
 
 var launch: bool
 
-func _init(id: String, terminal = false, velocity = Vector2.ZERO, launch = false):
+func _init(id: String, terminal = false, velocity = null, launch = false):
 	self.id = id
 	self.terminal = terminal
-	self.velocity = velocity
+	if not velocity == null:
+		self.velocity = velocity
 	self.launch = launch

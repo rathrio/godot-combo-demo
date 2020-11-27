@@ -1,8 +1,9 @@
 extends KinematicBody2D
 
-const ACCELERATION := 1000
-const MAX_SPEED := 200
+const ACCELERATION := 1500
+const MAX_SPEED := 150
 const FRICTION := 600
+const AIR_FRICTION_FACTOR := 0.3
 
 const MAX_OFFSET_DIFF := 30
 
@@ -44,11 +45,11 @@ func _physics_process(delta):
 	if state == State.FALL:
 		if grounded():
 			land()
-		
+
 	var friction = FRICTION
 	if not grounded():
-		friction *= 0.3
-		
+		friction *= AIR_FRICTION_FACTOR
+
 	move()
 	velocity = velocity.move_toward(Vector2.ZERO, friction * delta)
 
@@ -85,12 +86,20 @@ func blocking() -> bool:
 
 func dashing() -> bool:
 	return animation_state.get_current_node() == "Dash"
+	
+	
+func jumping() -> bool:
+	return animation_state.get_current_node() == "Jump"
+	
+	
+func falling() -> bool:
+	return animation_state.get_current_node() == "Fall"
 
 
 func handle_movement(delta: float):
 	if not grounded():
 		return
-		
+
 	var input_vector = get_input()
 	if input_vector != Vector2.ZERO && breaching():
 		state = State.MOVE
@@ -128,24 +137,6 @@ func offsets_align(area: Area2D) -> bool:
 	return offset_diff < MAX_OFFSET_DIFF
 
 
-func _on_Hitbox_area_entered(area: Area2D):
-	if not offsets_align(area):
-		return
-
-	if area.has_method("take_hit"):
-		area.take_hit(hitbox_area)
-		
-	hitlag.start(hitlag_time)
-	set_physics_process(false)
-	animation_player.stop(false)
-
-
-func _on_Hitlag_timeout():
-	set_physics_process(true)
-	if not animation_player.current_animation == "":
-		animation_player.play()
-		
-		
 func jump():
 	state = State.LAUNCH
 	animation_state.travel("Jump")
@@ -164,7 +155,7 @@ func land():
 func block():
 	if not grounded():
 		return
-		
+
 	state = State.BLOCK
 	animation_state.travel("Block")
 
@@ -181,40 +172,71 @@ func apply_velocity_factor(velocity_factor: Vector2):
 		velocity.y *= velocity_factor.y
 
 
-func _on_CombatBuffer_action_just_pressed(action):
+# Execute move as is, i.e., the id can be used as animation and velocity does
+# not need to be processed and can be applied directly.
+#
+# Note that this also sets the hitbox's move property.
+func execute_move(move: Move):
+	if move.id == "NONE":
+		return
+	
+	hitbox_area.move = move
+	animation_state.travel(move.id)
+	if not move.velocity == null:
+		apply_velocity_factor(move.velocity)
+
+
+func _on_Hitbox_area_entered(area: Area2D):
+	if not offsets_align(area):
+		return
+
+	if area.has_method("take_hit"):
+		area.take_hit(hitbox_area)
+
+	hitlag.start(hitlag_time)
+	set_physics_process(false)
+	animation_player.stop(false)
+	jump.pause()
+
+
+func _on_Hitlag_timeout():
+	set_physics_process(true)
+	if not animation_player.current_animation == "":
+		animation_player.play()
+	jump.resume()
+
+
+func _on_GroundCombatBuffer_action_just_pressed(action):
 	match action:
 		"block":
 			if not blocking():
 				block()
-				
+
 		"jump":
 			if grounded():
 				jump.launch()
 
 
-func _on_CombatBuffer_action_just_released(action):
+func _on_GroundCombatBuffer_action_just_released(action):
 	match action:
 		"block":
 			if blocking():
 				unblock()
 
 
-func _on_CombatBuffer_movement(move: Move):
+func _on_GroundCombatBuffer_movement(move: Move):
 	if not grounded():
 		return
-		
+
 	if dashing():
+		return
+		
+	if state == State.BLOCK:
 		return
 
 	velocity = Vector2.ZERO
 	execute_move(move)
 	state = State.ATTACK
-
-
-func _on_CombatBuffer_pause():
-	if blocking():
-		return
-	# TODO some visual combo pause hint
 
 
 func _on_MovementBuffer_movement(move: Move):
@@ -242,7 +264,7 @@ func _on_MovementBuffer_movement(move: Move):
 				apply_velocity_factor(move.velocity * -0.7)
 
 
-func _on_DashBuffer_movement(move: Move):
+func _on_DashCombatBuffer_movement(move: Move):
 	if not dashing():
 		return
 
@@ -252,19 +274,16 @@ func _on_DashBuffer_movement(move: Move):
 	state = State.ATTACK
 
 
-# Execute move as is, i.e., the id can be used as animation and velocity does
-# not need to be processed and can be applied directly.
-#
-# Note that this also sets the hitbox's move property.
-func execute_move(move: Move):
-	hitbox_area.move = move
-	animation_state.travel(move.id)
-	apply_velocity_factor(move.velocity)
-
-
 func _on_Jump_fall():
 	fall()
 
 
 func _on_Jump_launch():
 	jump()
+
+
+func _on_LaunchCombatBuffer_movement(move: Move):
+	if not jumping():
+		return
+
+	execute_move(move)

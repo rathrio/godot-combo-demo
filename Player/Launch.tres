@@ -7,10 +7,9 @@ const Move = preload(\"../Util/Move.gd\")
 
 var moves: Dictionary
 
-# Dash combos
 func _init():
 	moves =  {
-		\"punch\": Move.new(\"Uppercut1\", true, Vector2(150, 0), true),
+		\"kick\": Move.new(\"AerialKick\", true, null, true),
 	}
 "
 

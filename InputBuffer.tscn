@@ -4,7 +4,7 @@
 
 [node name="InputBuffer" type="Node"]
 script = ExtResource( 1 )
-valid_inputs = PoolStringArray( "punch", "uppercut", "kick", "block" )
+valid_inputs = PoolStringArray( "punch", "kick", "block" )
 
 [node name="ClearTimer" type="Timer" parent="."]
 
